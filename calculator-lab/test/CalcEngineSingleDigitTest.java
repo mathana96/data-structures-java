@@ -14,8 +14,6 @@ public class CalcEngineSingleDigitTest
 
   Stack<Character> operatorStack = new Stack<>();
   
-  Stack<Double> calcNumStack = new Stack<>();
-  Stack<Character> calcOpStack = new Stack<>();
   
   String finalAnswer = "";
   

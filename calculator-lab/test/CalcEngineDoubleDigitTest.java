@@ -10,6 +10,8 @@ public class CalcEngineDoubleDigitTest
 {
 
   Stack<String> operatorStack = new Stack<>();
+  Stack<String> calcNumStack = new Stack<>();
+  Stack<String> calcOpStack = new Stack<>();
   private static final int plusMinusPrecedence = 1;
   private static final int multDividePrecedence = 2;
   
@@ -17,8 +19,9 @@ public class CalcEngineDoubleDigitTest
   public void test()
   {
 //	testRegex();
-	String infix2 = "((1 + 2) * 3 - 4) * 5";
-	assertEquals("12+3*4-5*", toPostfix(infix2));
+//	String infix2 = "((11 + 2) * 3 - 4) * 5";
+//	assertEquals("11 2 + 3 * 4 - 5 *", toPostfix(infix2));
+	parseRPN("11 2 + 3 * 4 - 5 *");
   }
   
   
@@ -73,7 +76,7 @@ public class CalcEngineDoubleDigitTest
 	  //	  System.out.println(currentElement);
 	  if (currentElement.matches("\\d+.\\d+|\\d+"))
 	  {
-		postfix += currentElement; 
+		postfix += currentElement + " "; 
 	  }
 	  else if (currentElement.equals("("))
 	  {
@@ -87,7 +90,7 @@ public class CalcEngineDoubleDigitTest
 		{
 		  if (!operatorStack.peek().equals("(")) 
 		  {
-			postfix += operatorStack.pop(); //Pop all operands until reach an open parenthesis
+			postfix += operatorStack.pop() + " "; //Pop all operands until reach an open parenthesis
 		  }
 		  else
 		  {
@@ -105,7 +108,7 @@ public class CalcEngineDoubleDigitTest
 		{		   
 		  if (precedenceCheck(currentElement, operatorStack.peek()) < 0)
 		  {
-			postfix += operatorStack.pop();
+			postfix += operatorStack.pop() + " ";
 		  } 
 		  else
 		  {
@@ -125,6 +128,56 @@ public class CalcEngineDoubleDigitTest
 	return postfix;
 	
   }
+  
+  public void parseRPN(String postfix)
+  {
+	String currentElement = "";
+	
+	postfix = postfix.trim(); //removing leading and trailing whitespaces
+
+	String[]tokens = postfix.split("\\s");
+	
+	for (int i=(tokens.length-1); i>=0; i--)
+	{
+	  //	  System.out.println(i);
+	  currentElement = tokens[i];
+	  	  System.out.println(currentElement);
+	  if (currentElement.matches("\\d+.\\d+|\\d+"))
+	  {
+		calcNumStack.push(currentElement); 
+	  }
+	  else if ( (currentElement.equals("+")) || (currentElement.equals("-"))
+		  ||	(currentElement.equals("*")) || (currentElement.equals("/")) )
+	  {
+		calcOpStack.push(currentElement);
+	  }
+	}
+	System.out.println(calcNumStack);
+	System.out.println(calcOpStack);
+  }
+  
+//  public double calcSum(String operand1, String operand2, String operator)
+//  {
+//	switch (operator)
+//	{
+//	  case "+":
+//		return operand1 + operand2;
+//		
+//	  case "-":
+//		return operand1 - operand2;
+//		
+//	  case "*":
+//		return operand1 * operand2;
+//		
+//	  case "/":
+//		return operand1 / operand2;
+//		
+//	  default:
+//		  System.out.println("Invalid postfix");
+//		  return 0;
+//	}
+//	
+//  }
   
   public int precedenceCheck(String current, String topOfStack)
   {
