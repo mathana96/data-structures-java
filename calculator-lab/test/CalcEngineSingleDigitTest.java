@@ -13,6 +13,12 @@ public class CalcEngineSingleDigitTest
 
 
   Stack<Character> operatorStack = new Stack<>();
+  
+  Stack<Double> calcNumStack = new Stack<>();
+  Stack<Character> calcOpStack = new Stack<>();
+  
+  String finalAnswer = "";
+  
 
   @Test
   public void testRPNWithoutParenthesis()
@@ -27,8 +33,8 @@ public class CalcEngineSingleDigitTest
   @Test
   public void testRPNWithParenthesis()
   {
-	String infix = "3 * (4 + 6)";
-	assertEquals("346+*", toPostfixModerate(infix));
+//	String infix = "3 * (4 + 6)";
+//	assertEquals("346+*", toPostfixModerate(infix));
 	
 	String infix2 = "((1 + 2) * 3 - 4) * 5";
 	assertEquals("12+3*4-5*", toPostfixModerate(infix2));
@@ -146,6 +152,80 @@ public class CalcEngineSingleDigitTest
 	return postfix;
   }
 
+//  public String calcPostfix(String postfix)
+//  {
+//	int operand1;
+//	int operand2;
+//	String operator = "";
+//	
+//	parsePostfix(postfix);
+//	
+//	while (condition)
+//	{
+//	  if (calcNumStack.size() >= 2)
+//	  {
+//		operand1 = Character.getNumericValue(calcNumStack.pop());
+//		operand2 = Character.getNumericValue(calcNumStack.pop());
+//
+//		if (operatorStack.size() >= 1)
+//		{
+//		  operator = Character.toString(calcOpStack.pop());
+//		}
+//	  }
+//	  
+//	  double sum = calcSum(operand1, operand2, operator);
+//	  if (sum != 0.0)
+//	  {
+//		calcNumStack.push(sum);
+//	  }
+//	}
+//  }
+  
+  public double calcSum(int operand1, int operand2, String operator)
+  {
+	switch (operator)
+	{
+	  case "+":
+		return operand1 + operand2;
+		
+	  case "-":
+		return operand1 - operand2;
+		
+	  case "*":
+		return operand1 * operand2;
+		
+	  case "/":
+		return operand1 / operand2;
+		
+	  default:
+		  System.out.println("Invalid postfix");
+		  return 0;
+	}
+	
+  }
+  public void parsePostfix(String postfix)
+  {
+	Character currentChar;
+//	for (int i=0; i<postfix.length(); i++)
+//	{
+//	  currentChar = postfix.charAt(i);
+//	  
+//	  if (Character.isDigit(currentChar))
+//	  {
+//		calcNumStack.push(currentChar);
+//	  }
+//	  else if ( (currentChar.equals('+')) || (currentChar.equals('-'))
+//		  ||	(currentChar.equals('*')) || (currentChar.equals('/')) )
+//	  {
+//		calcOpStack.push(currentChar);
+//	  }	 
+//	}
+	
+  }
+  
+  
+  
+  
   public int precedenceCheck(char current, char topOfStack)
   {
 	int currentVal = 0;
