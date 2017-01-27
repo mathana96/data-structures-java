@@ -21,9 +21,10 @@ public class CalcEngineDoubleDigitTest
 //	testRegex();
 //	String infix2 = "((11 + 2) * 3 - 4) * 5";
 //	assertEquals("11 2 + 3 * 4 - 5 *", toPostfix(infix2));
-//	parseRPN("11 2 + 3 * 4 - 5 *");
-	parseRPN("1 2 +");
-	doCalculations();
+	String postfix = toPostfix("(12+8)*3-4*(2+3)");
+	parseRPN(postfix);
+//	parseRPN("1 2 +");
+//	doCalculations(calcNumStack, calcOpStack);
   }
   
   
@@ -124,7 +125,7 @@ public class CalcEngineDoubleDigitTest
 	}
 	while (!operatorStack.empty())
 	{
-	  postfix += operatorStack.pop();
+	  postfix += operatorStack.pop() + " ";
 	}
 	System.out.println(postfix);
 	return postfix;
@@ -139,43 +140,53 @@ public class CalcEngineDoubleDigitTest
 
 	String[]tokens = postfix.split("\\s");
 	
-	for (int i=(tokens.length-1); i>=0; i--)
+	for (int i=0; i<tokens.length; i++)
 	{
-	  //	  System.out.println(i);
+
 	  currentElement = tokens[i];
-	  	  System.out.println(currentElement);
-	  if (currentElement.matches("\\d+.\\d+|\\d+"))
+	  
+	  if (currentElement.matches("\\d+.\\d+|\\d+")) //If it's a double...
 	  {
 		calcNumStack.push(currentElement); 
 	  }
 	  else if ( (currentElement.equals("+")) || (currentElement.equals("-"))
 		  ||	(currentElement.equals("*")) || (currentElement.equals("/")) )
 	  {
-		calcOpStack.push(currentElement);
+		if (calcNumStack.size() >= 2)
+		{
+		  Double operand2 = Double.parseDouble(calcNumStack.pop()); //first popped
+		  Double operand1 = Double.parseDouble(calcNumStack.pop());
+		  String operator = currentElement;
+
+		  calcNumStack.push(calcSum(operand1, operand2, operator));;
+		}
 	  }
+
 	}
-	System.out.println(calcNumStack);
-	System.out.println(calcOpStack);
+	System.out.println(calcNumStack.pop()); //Final answer
+	
   }
   
-  public void doCalculations()
-  {
-	while ((!calcNumStack.empty()) || (!calcOpStack.empty()))
-	{
-	  if ((calcNumStack.size() >= 2) && (!calcOpStack.empty()))
-	  {
-		Double operand1 = Double.parseDouble(calcNumStack.pop());
-		Double operand2 = Double.parseDouble(calcNumStack.pop());
-		String operator = calcOpStack.pop();
-
-		calcNumStack.push(calcSum(operand1, operand2, operator));
-	  }
-	  else 
-	  {
-		System.out.println(calcNumStack.pop());
-	  }
-	}
-  }
+//  public void doCalculations(Stack<String> calcNumStack, Stack<String> calcOpStack)
+//  {
+//	
+//	
+//	while ((!calcNumStack.empty()) || (!calcOpStack.empty()))
+//	{
+//	  if ((calcNumStack.size() >= 2) && (!calcOpStack.empty()))
+//	  {
+//		Double operand1 = Double.parseDouble(calcNumStack.pop());
+//		Double operand2 = Double.parseDouble(calcNumStack.pop());
+//		String operator = calcOpStack.pop();
+//
+//		calcNumStack.push(calcSum(operand1, operand2, operator));
+//	  }
+//	  else 
+//	  {
+//		System.out.println(calcNumStack.pop());
+//	  }
+//	}
+//  }
   public String calcSum(Double operand1, Double operand2, String operator)
   {
 	switch (operator)

@@ -58,15 +58,18 @@ implements ActionListener
 	display = new JTextField();
 	contentPane.add(display, BorderLayout.NORTH);
 
-	JPanel panel = new JPanel();
-	panel.setLayout(new BoxLayout(panel, 0));
-	display.setAlignmentX(Component.CENTER_ALIGNMENT);
-	panel.add(display);
+	display.setEditable(false); //Prevent typing into textfield
 	
-	JTextField line2 = new JTextField();
-	line2.setAlignmentX(Component.CENTER_ALIGNMENT);
-	panel.add(line2);
-	contentPane.add(panel, BorderLayout.NORTH);
+	frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);//close app when 'x' button clicked
+//	JPanel panel = new JPanel();
+//	panel.setLayout(new BoxLayout(panel, 0));
+//	display.setAlignmentX(Component.CENTER_ALIGNMENT);
+//	panel.add(display);
+//	
+//	JTextField line2 = new JTextField();
+//	line2.setAlignmentX(Component.CENTER_ALIGNMENT);
+//	panel.add(line2);
+//	contentPane.add(panel, BorderLayout.NORTH);
 	
 	
 	JPanel buttonPanel = new JPanel(new GridLayout(5, 4));

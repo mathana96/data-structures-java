@@ -143,23 +143,7 @@ public class CalcEngine
 	  postfix += Character.toString(operatorStack.pop());
 	}
 
-	dValue = postfix;
-	//        if (operator == '+') {
-	//			displayValue += operand1;
-	//			operand1 = 0;
-	//		}
-	//	    else if (operator == '-') {
-	//			displayValue = operand1-displayValue;
-	//			operand1 = 0;
-	//		}
-	//		else if (operator == '*') {
-	//			displayValue = operand1*displayValue;
-	//			operand1 = 0;
-	//		}
-	//		else if (operator == '/') {
-	//			displayValue = operand1/displayValue;
-	//			operand1 = 0;
-	//		}
+	dValue = "Postfix: " + postfix;
 
   }
   
@@ -219,7 +203,7 @@ public class CalcEngine
    */
   public String getTitle()
   {
-	return("Coolculator");
+	return("'Cool'culator");
   }
 
   /**
