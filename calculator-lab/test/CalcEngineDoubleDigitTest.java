@@ -21,7 +21,9 @@ public class CalcEngineDoubleDigitTest
 //	testRegex();
 //	String infix2 = "((11 + 2) * 3 - 4) * 5";
 //	assertEquals("11 2 + 3 * 4 - 5 *", toPostfix(infix2));
-	parseRPN("11 2 + 3 * 4 - 5 *");
+//	parseRPN("11 2 + 3 * 4 - 5 *");
+	parseRPN("1 2 +");
+	doCalculations();
   }
   
   
@@ -156,28 +158,46 @@ public class CalcEngineDoubleDigitTest
 	System.out.println(calcOpStack);
   }
   
-//  public double calcSum(String operand1, String operand2, String operator)
-//  {
-//	switch (operator)
-//	{
-//	  case "+":
-//		return operand1 + operand2;
-//		
-//	  case "-":
-//		return operand1 - operand2;
-//		
-//	  case "*":
-//		return operand1 * operand2;
-//		
-//	  case "/":
-//		return operand1 / operand2;
-//		
-//	  default:
-//		  System.out.println("Invalid postfix");
-//		  return 0;
-//	}
-//	
-//  }
+  public void doCalculations()
+  {
+	while ((!calcNumStack.empty()) || (!calcOpStack.empty()))
+	{
+	  if ((calcNumStack.size() >= 2) && (!calcOpStack.empty()))
+	  {
+		Double operand1 = Double.parseDouble(calcNumStack.pop());
+		Double operand2 = Double.parseDouble(calcNumStack.pop());
+		String operator = calcOpStack.pop();
+
+		calcNumStack.push(calcSum(operand1, operand2, operator));
+	  }
+	  else 
+	  {
+		System.out.println(calcNumStack.pop());
+	  }
+	}
+  }
+  public String calcSum(Double operand1, Double operand2, String operator)
+  {
+	switch (operator)
+	{
+	  case "+":
+		return Double.toString(operand1 + operand2);
+		
+	  case "-":
+		return Double.toString(operand1 - operand2);
+		
+	  case "*":
+		return Double.toString(operand1 * operand2);
+		
+	  case "/":
+		return Double.toString(operand1 / operand2);
+		
+	  default:
+		  return("Invalid postfix");
+		  
+	}
+	
+  }
   
   public int precedenceCheck(String current, String topOfStack)
   {

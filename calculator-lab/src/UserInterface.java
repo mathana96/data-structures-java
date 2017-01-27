@@ -58,6 +58,17 @@ implements ActionListener
 	display = new JTextField();
 	contentPane.add(display, BorderLayout.NORTH);
 
+	JPanel panel = new JPanel();
+	panel.setLayout(new BoxLayout(panel, 0));
+	display.setAlignmentX(Component.CENTER_ALIGNMENT);
+	panel.add(display);
+	
+	JTextField line2 = new JTextField();
+	line2.setAlignmentX(Component.CENTER_ALIGNMENT);
+	panel.add(line2);
+	contentPane.add(panel, BorderLayout.NORTH);
+	
+	
 	JPanel buttonPanel = new JPanel(new GridLayout(5, 4));
 	buttonPanel.setBackground(Color.darkGray);
 	addButton(buttonPanel, "C");
