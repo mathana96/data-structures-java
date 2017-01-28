@@ -24,6 +24,7 @@ public class CalcEngineDDWIthExpTest
 //	System.out.println(toPostfix("(4*2^3)"));
 	String postfix = toPostfix("(2^3)*2-6*2");
 	parseRPN(postfix);
+//	System.out.println(expCheck("**//++344*"));
 
   }
   
@@ -32,7 +33,6 @@ public class CalcEngineDDWIthExpTest
   {
 	
   }	
-  
 
   public String toPostfix(String infix)
   {
@@ -41,7 +41,7 @@ public class CalcEngineDDWIthExpTest
 	
 	infix = infix.replaceAll("\\s+",""); //removing whitespace
 	
-	String[]tokens = infix.split("(?<=-)|(?=-)|(?<=\\+)|(?=\\+)|(?<=\\*)|(?=\\*)|(?<=/)|(?=/)|(?<=\\()|(?=\\()|(?<=\\))|(?=\\))|(?<=\\^)|(?=\\^)"); ; 
+	String[]tokens = splitToTokens(infix);  
 	
 	for (int i=0; i<tokens.length; i++)
 	{
@@ -164,6 +164,11 @@ public class CalcEngineDDWIthExpTest
 	
   }
   
+  
+  public String[] splitToTokens(String string)
+  {
+	return string.split("(?<=-)|(?=-)|(?<=\\+)|(?=\\+)|(?<=\\*)|(?=\\*)|(?<=/)|(?=/)|(?<=\\()|(?=\\()|(?<=\\))|(?=\\))|(?<=\\^)|(?=\\^)"); 
+  }
   public int precedenceCheck(String current, String topOfStack)
   {
 	int currentVal = 0;
