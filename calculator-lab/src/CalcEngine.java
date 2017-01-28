@@ -8,21 +8,23 @@ import java.util.Stack;
  */
 public class CalcEngine
 {
-  char operator;
-  int displayValue, operand1;
-  String dValue = "";
+
+  String displayValue = "";
+  
+  Stack<String> operatorStack = new Stack<>();
+  Stack<String> calcNumStack = new Stack<>();
+  Stack<String> calcOpStack = new Stack<>();
   private static final int plusMinusPrecedence = 1;
   private static final int multDividePrecedence = 2;
-  Stack<Character> operatorStack = new Stack<>();
+  private static final int expPrecedence = 3;
+
   /**
    * Create a CalcEngine instance. Initialise its state so that it is ready 
    * for use.
    */
   public CalcEngine()
   {
-	operator =' ';
-	displayValue=0;
-	operand1 = 0;
+	
   }
 
   /**
@@ -31,7 +33,7 @@ public class CalcEngine
    */
   public String getDisplayValue()
   {
-	return(dValue);
+	return(displayValue);
   }
 
   /**
@@ -40,7 +42,7 @@ public class CalcEngine
    */
   public void numberPressed(String number)
   {
-	dValue += number;
+	displayValue += number;
   }
 
   //    /**
@@ -82,33 +84,45 @@ public class CalcEngine
    */
   public void equals()
   {
-	String postfix = "";
-	Character currentChar;
+	String postfix = toPostfix(displayValue);
+	String ans = parseRPN(postfix);
+	displayValue = "Postfix: " + postfix + " Ans: " + ans;
 
-	dValue = dValue.replaceAll("\\s+",""); //removing whitespace
-	//	System.out.println(infix);
-	for (int i=0; i<dValue.length() ; i++)
+  }
+
+
+
+  public String toPostfix(String infix)
+  {
+	String postfix = "";
+	String currentElement = "";
+
+	infix = infix.replaceAll("\\s+",""); //removing whitespace
+
+	String[]tokens = infix.split("(?<=-)|(?=-)|(?<=\\+)|(?=\\+)|(?<=\\*)|(?=\\*)|(?<=/)|(?=/)|(?<=\\()|(?=\\()|(?<=\\))|(?=\\))|(?<=\\^)|(?=\\^)"); ; 
+
+	for (int i=0; i<tokens.length; i++)
 	{
 	  //	  System.out.println(i);
-	  currentChar = dValue.charAt(i);
-	  //	  System.out.println(currentChar);
-	  if (Character.isDigit(currentChar))
+	  currentElement = tokens[i];
+	  //	  System.out.println(currentElement);
+	  if (currentElement.matches("\\d+.\\d+|\\d+"))
 	  {
-		postfix += Character.toString(currentChar);
+		postfix += currentElement + " "; 
 	  }
-	  else if (currentChar.equals('('))
+	  else if (currentElement.equals("("))
 	  {
-		operatorStack.push(currentChar);
+		operatorStack.push(currentElement);
 	  }
-	  else if (currentChar.equals(')'))
+	  else if (currentElement.equals(")"))
 	  {
 		boolean openParen = false;
 
 		while ( (!operatorStack.empty()) && (openParen == false))
 		{
-		  if (operatorStack.peek() != '(') 
+		  if (!operatorStack.peek().equals("(")) 
 		  {
-			postfix += Character.toString(operatorStack.pop()); //Pop all operands until reach an open parenthesis
+			postfix += operatorStack.pop() + " "; //Pop all operands until reach an open parenthesis
 		  }
 		  else
 		  {
@@ -117,51 +131,115 @@ public class CalcEngine
 		  }
 		}
 	  }
-	  else if ( (currentChar.equals('+')) || (currentChar.equals('-'))
-		  ||	(currentChar.equals('*')) || (currentChar.equals('/')) )
+	  else if ( (currentElement.equals("+")) || (currentElement.equals("-"))
+		  ||	(currentElement.equals("*")) || (currentElement.equals("/")) || (currentElement.equals("^")) )
 	  {
 		boolean noPreced = false;
 
 		while ( (!operatorStack.empty()) && (noPreced == false) )
 		{		   
-		  if (precedenceCheck(currentChar, operatorStack.peek()) < 0)
+		  if (precedenceCheck(currentElement, operatorStack.peek()) < 0)
 		  {
-			postfix += Character.toString(operatorStack.pop());
+			postfix += operatorStack.pop() + " ";
 		  } 
 		  else
 		  {
 			noPreced = true;
 		  }
 		}
-		operatorStack.push(currentChar);
+		operatorStack.push(currentElement);
 
-	  }	  
+	  }	   
 
 	}
 	while (!operatorStack.empty())
 	{
-	  postfix += Character.toString(operatorStack.pop());
+	  postfix += operatorStack.pop() + " ";
 	}
-
-	dValue = "Postfix: " + postfix;
-
+	System.out.println(postfix);
+	return postfix;	
   }
   
-  public int precedenceCheck(char current, char topOfStack)
+  public String parseRPN(String postfix)
+  {
+	String currentElement = "";
+	
+	postfix = postfix.trim(); //removing leading and trailing whitespaces
+
+	String[]tokens = postfix.split("\\s");
+	
+	for (int i=0; i<tokens.length; i++)
+	{
+
+	  currentElement = tokens[i];
+	  
+	  if (currentElement.matches("\\d+.\\d+|\\d+")) //If it's a double...
+	  {
+		calcNumStack.push(currentElement); 
+	  }
+	  else if ( (currentElement.equals("+")) || (currentElement.equals("-"))
+		  ||	(currentElement.equals("*")) || (currentElement.equals("/")) || (currentElement.equals("^")) )
+	  {
+		if (calcNumStack.size() >= 2)
+		{
+		  Double operand2 = Double.parseDouble(calcNumStack.pop()); //first popped
+		  Double operand1 = Double.parseDouble(calcNumStack.pop());
+		  String operator = currentElement;
+
+		  calcNumStack.push(calcSum(operand1, operand2, operator));;
+		}
+	  }
+
+	}
+	return calcNumStack.pop(); //Final answer
+	
+  }
+  
+  public String calcSum(Double operand1, Double operand2, String operator)
+  {
+	switch (operator)
+	{
+	  case "+":
+		return Double.toString(operand1 + operand2);
+		
+	  case "-":
+		return Double.toString(operand1 - operand2);
+		
+	  case "*":
+		return Double.toString(operand1 * operand2);
+		
+	  case "/":
+		return Double.toString(operand1 / operand2);
+		
+	  case "^":
+		return Double.toString(Math.pow(operand1, operand2));
+		
+		
+	  default:
+		  return("Invalid postfix");
+		  
+	}
+	
+  }
+  public int precedenceCheck(String current, String topOfStack)
   {
 	int currentVal = 0;
 	int topOfStackVal = 0;
 	//If current - top = negative, pop top and put current. else, just put current
 	switch (current)
 	{
-	  case '+':
-	  case '-':
+	  case "+":
+	  case "-":
 		currentVal = plusMinusPrecedence;
 		break;
 
-	  case '*':
-	  case '/':
+	  case "*":
+	  case "/":
 		currentVal = multDividePrecedence;
+		break;
+		
+	  case "^":
+		currentVal = expPrecedence;
 		break;
 
 	  default:
@@ -171,16 +249,19 @@ public class CalcEngine
 
 	switch (topOfStack)
 	{
-	  case '+':
-	  case '-':
+	  case "+":
+	  case "-":
 		topOfStackVal = plusMinusPrecedence;
 		break;
 
-	  case '*':
-	  case '/':
+	  case "*":
+	  case "/":
 		topOfStackVal = multDividePrecedence;
 		break;
-
+		
+	  case "^":
+		currentVal = expPrecedence;
+		break;
 	  default:
 		topOfStackVal = 0;
 		break;
@@ -193,7 +274,7 @@ public class CalcEngine
    */
   public void clear()
   {
-	dValue = "";
+	displayValue = "";
 	//operand1 = 0;
 
   }
