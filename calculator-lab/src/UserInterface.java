@@ -123,10 +123,11 @@ implements ActionListener
 	String command = event.getActionCommand();
 	
 	if(command.equals("="))
-	  if (!display.getText().contains("Ans: "))
+	  if (!display.getText().contains("Ans: ") && !display.getText().isEmpty())
 		calc.equals();
 	  else
 		calc.clear();
+	
 	else if(command.equals("C"))
 	  calc.clear();
 	else
