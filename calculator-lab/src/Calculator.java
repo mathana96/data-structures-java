@@ -3,7 +3,7 @@
  * The main class of a simple calculator. Create one of these and you'll
  * get the calculator on screen.
  * 
- * @author Michael Kolling
+ * @author Michael Kolling, Mathana Sreedaran
  * @version 31 July 2000
  */
 public class Calculator

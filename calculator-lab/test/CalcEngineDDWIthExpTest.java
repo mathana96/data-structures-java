@@ -22,12 +22,36 @@ public class CalcEngineDDWIthExpTest
   {
 
 //	System.out.println(toPostfix("(4*2^3)"));
-	String postfix = toPostfix("(2^3)*2-6*2");
-	parseRPN(postfix);
-//	System.out.println(expCheck("**//++344*"));
+//	String postfix = toPostfix("(2^3)*2-6*2");
+//	parseRPN(postfix);
+	System.out.println(expCheck("-3"));
 
   }
-  
+  public boolean expCheck(String expression)
+  {
+	String[]tokens = splitToTokens(expression);  
+	
+	int indicator = -1;
+	
+	for (int i=0; i<tokens.length; i++)
+	{
+	  
+	  if (tokens[i].matches("\\d+.\\d+|\\d+")) 
+	  {
+		indicator++;
+	  }
+	  else if ( (tokens[i].equals("+")) || (tokens[i].equals("-"))
+		  ||	(tokens[i].equals("*")) || (tokens[i].equals("/")) || (tokens[i].equals("^")) )
+	  {
+		indicator--;
+	  }
+	  if (indicator < 0)
+	  {
+		return false;
+	  }
+	}
+	return true;
+  }
   
   public void equals()
   {
