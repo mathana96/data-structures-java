@@ -14,7 +14,7 @@ public class CalcEngine
 
   Stack<String> operatorStack = new Stack<>();
   Stack<String> calcNumStack = new Stack<>();
-  Stack<String> calcOpStack = new Stack<>();
+//  Stack<String> calcOpStack = new Stack<>();
   private static final int plusMinusPrecedence = 1;
   private static final int multDividePrecedence = 2;
   private static final int expPrecedence = 3;
