@@ -44,8 +44,17 @@ public class CalcEngine
 	{
 		if (number.equals("negative"))
 			displayValue += "-";
+		else if ( (number.equals("+")) || (number.equals("-"))
+				||	(number.equals("*")) || (number.equals("/")) || (number.equals("^")) 
+				||	(number.equals("(")) || (number.equals(")")))
+		{
+			displayValue += " " + number + " ";
+		}	
 		else
-			displayValue += number + " ";
+		{
+			displayValue += number;
+
+		}
 	}
 
 
@@ -235,7 +244,7 @@ public class CalcEngine
 			break;
 
 		case "^":
-			currentVal = expPrecedence;
+			topOfStackVal = expPrecedence;
 			break;
 		default:
 			topOfStackVal = 0;
