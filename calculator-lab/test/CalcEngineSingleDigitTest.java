@@ -26,6 +26,8 @@ public class CalcEngineSingleDigitTest
 	
 	String infix2 = "3 - 4 / 6";
 	assertEquals("346/-", toPostfixSimple(infix2));
+	
+	assertTrue(false);
   }
 
   @Test

@@ -14,175 +14,123 @@ import javax.swing.border.*;
 public class UserInterface
 implements ActionListener
 {
-  private CalcEngine calc;
-  private boolean showingAuthor;
+	private CalcEngine calc;
+	private boolean showingAuthor;
 
-  private JFrame frame;
-  private JTextField display;
-  private JLabel status;
+	private JFrame frame;
+	private JTextField display;
+	private JLabel status;
 
-  private String infix = "";
 
-  /**
-   * Create a user interface for a given calcEngine.
-   */
-  public UserInterface(CalcEngine engine)
-  {
-	calc = engine;
-	showingAuthor = true;
-	makeFrame();
-	frame.setVisible(true);
-  }
+	/**
+	 * Create a user interface for a given calcEngine.
+	 */
+	public UserInterface(CalcEngine engine)
+	{
+		calc = engine;
+		showingAuthor = true;
+		makeFrame();
+		frame.setVisible(true);
+	}
 
-  /**
-   * Make this interface visible again. (Has no effect if it is already
-   * visible.)
-   */
-  public void setVisible(boolean visible)
-  {
-	frame.setVisible(visible);
-  }
+	/**
+	 * Make this interface visible again. (Has no effect if it is already
+	 * visible.)
+	 */
+	public void setVisible(boolean visible)
+	{
+		frame.setVisible(visible);
+	}
 
-  /**
-   * Make the frame for the user interface.
-   */
-  private void makeFrame()
-  {
-	frame = new JFrame(calc.getTitle());
+	/**
+	 * Make the frame for the user interface.
+	 */
+	private void makeFrame()
+	{
+		frame = new JFrame(calc.getTitle());
 
-	JPanel contentPane = (JPanel)frame.getContentPane();
-	contentPane.setLayout(new BorderLayout(8, 8));
-	contentPane.setBorder(new EmptyBorder( 10, 10, 10, 10));
-	contentPane.setBackground(Color.black);
+		JPanel contentPane = (JPanel)frame.getContentPane();
+		contentPane.setLayout(new BorderLayout(8, 8));
+		contentPane.setBorder(new EmptyBorder( 10, 10, 10, 10));
+		contentPane.setBackground(Color.black);
 
-	display = new JTextField();
-	contentPane.add(display, BorderLayout.NORTH);
+		display = new JTextField();
+		contentPane.add(display, BorderLayout.NORTH);
 
-	display.setEditable(false); //Prevent typing into textfield
-	
-	frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);//close app when 'x' button clicked
-//	JPanel panel = new JPanel();
-//	panel.setLayout(new BoxLayout(panel, 0));
-//	display.setAlignmentX(Component.CENTER_ALIGNMENT);
-//	panel.add(display);
-//	
-//	JTextField line2 = new JTextField();
-//	line2.setAlignmentX(Component.CENTER_ALIGNMENT);
-//	panel.add(line2);
-//	contentPane.add(panel, BorderLayout.NORTH);
-	
-	
-	JPanel buttonPanel = new JPanel(new GridLayout(5, 4));
-	buttonPanel.setBackground(Color.darkGray);
-	addButton(buttonPanel, "C");
-	addButton(buttonPanel, "(");
-	addButton(buttonPanel, ")");
-	addButton(buttonPanel, "/");
-	addButton(buttonPanel, "7");
-	addButton(buttonPanel, "8");
-	addButton(buttonPanel, "9");
-	addButton(buttonPanel, "*");
-	addButton(buttonPanel, "4");
-	addButton(buttonPanel, "5");
-	addButton(buttonPanel, "6");
-	addButton(buttonPanel, "+");
-	addButton(buttonPanel, "1");
-	addButton(buttonPanel, "2");
-	addButton(buttonPanel, "3");
-	addButton(buttonPanel, "-");
-	addButton(buttonPanel, "0");
-	addButton(buttonPanel, ".");
-	addButton(buttonPanel, "^");
-	addButton(buttonPanel, "=");
-	contentPane.add(buttonPanel, BorderLayout.CENTER);
+		display.setEditable(false); //Prevent typing into textfield
 
-	status = new JLabel(calc.getAuthor());
-	status.setForeground(Color.white);
-	status.setHorizontalAlignment(JLabel.CENTER);
-	contentPane.add(status, BorderLayout.SOUTH);
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);//close app when 'x' button clicked
 
-	frame.pack();
-  }
 
-  /**
-   * Add a button to the button panel.
-   */
-  private void addButton(Container panel, String buttonText)
-  {
-	JButton button = new JButton(buttonText);
-	button.addActionListener(this);
-	panel.add(button);
-  }
 
-  /**
-   * An interface action has been performed. Find out what it was and
-   * handle it.
-   */
-  public void actionPerformed(ActionEvent event)
-  {
-	String command = event.getActionCommand();
-	
-	if(command.equals("="))
-	  if (!display.getText().contains("Ans: ") && !display.getText().isEmpty())
-		calc.equals();
-	  else
-		calc.clear();
-	
-	else if(command.equals("C"))
-	  calc.clear();
-	else
-	  calc.numberPressed(command);;
-	
-//	if(command.equals("0") ||
-//		command.equals("1") ||
-//		command.equals("2") ||
-//		command.equals("3") ||
-//		command.equals("4") ||
-//		command.equals("5") ||
-//		command.equals("6") ||
-//		command.equals("7") ||
-//		command.equals("8") ||
-//		command.equals("9"))
-//	{
-//	  int number = Integer.parseInt(command);
-//	  calc.numberPressed(number);
-//	}
-//	else if(command.equals("+"))
-//	  calc.plus();
-//	else if(command.equals("-"))
-//	  calc.minus();
-//	else if(command.equals("="))
-//	  calc.equals();
-//	else if(command.equals("C"))
-//	  calc.clear();
-//	else if(command.equals("*"))
-//	  calc.multiply();
-//	else if(command.equals("/"))
-//	  calc.divide();
+		JPanel buttonPanel = new JPanel(new GridLayout(6, 4));
+		buttonPanel.setBackground(Color.darkGray);
+		addButton(buttonPanel, "C");
+		addButton(buttonPanel, "negative");
+		addButton(buttonPanel, "(");
+		addButton(buttonPanel, ")");
+		addButton(buttonPanel, "/");
+		addButton(buttonPanel, "9");
+		addButton(buttonPanel, "8");
+		addButton(buttonPanel, "7");
+		addButton(buttonPanel, "*");
+		addButton(buttonPanel, "4");
+		addButton(buttonPanel, "5");
+		addButton(buttonPanel, "6");
+		addButton(buttonPanel, "+");
+		addButton(buttonPanel, "1");
+		addButton(buttonPanel, "2");
+		addButton(buttonPanel, "3");
+		addButton(buttonPanel, "-");
+		addButton(buttonPanel, "0");
+		addButton(buttonPanel, ".");
+		addButton(buttonPanel, "^");
+		addButton(buttonPanel, "=");
+		contentPane.add(buttonPanel, BorderLayout.CENTER);
 
-	redisplay();
-  }
+		status = new JLabel(calc.getAuthor());
+		status.setForeground(Color.white);
+		status.setHorizontalAlignment(JLabel.CENTER);
+		contentPane.add(status, BorderLayout.SOUTH);
 
-  /**
-   * Update the interface display to show the current value of the 
-   * calculator.
-   */
-  private void redisplay()
-  {
-	display.setText(calc.getDisplayValue());
-  }
+		frame.pack();
+	}
 
-  /**
-   * Toggle the info display in the calculator's status area between the
-   * author and version information.
-   */
-//  private void showInfo()
-//  {
-//	if(showingAuthor)
-//	  status.setText(calc.getVersion());
-//	else
-//	  status.setText(calc.getAuthor());
-//
-//	showingAuthor = !showingAuthor;
-//  }
+	/**
+	 * Add a button to the button panel.
+	 */
+	private void addButton(Container panel, String buttonText)
+	{
+		JButton button = new JButton(buttonText);
+		button.addActionListener(this);
+		panel.add(button);
+	}
+
+	/**
+	 * An interface action has been performed. Find out what it was and
+	 * handle it.
+	 */
+	public void actionPerformed(ActionEvent event)
+	{
+		String command = event.getActionCommand();
+
+		if(command.equals("="))
+				calc.equals();
+		else if(command.equals("C"))
+			calc.clear();
+		else
+			calc.numberPressed(command);;
+
+		redisplay();
+	}
+
+	/**
+	 * Update the interface display to show the current value of the 
+	 * calculator.
+	 */
+	private void redisplay()
+	{
+		display.setText(calc.getDisplayValue());
+	}
+
 }

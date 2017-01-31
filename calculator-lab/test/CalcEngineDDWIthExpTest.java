@@ -21,10 +21,12 @@ public class CalcEngineDDWIthExpTest
   public void test()
   {
 
-//	System.out.println(toPostfix("(4*2^3)"));
-//	String postfix = toPostfix("(2^3)*2-6*2");
-//	parseRPN(postfix);
-	System.out.println(expCheck("-3"));
+	String infix2 = "((11 + 2) * 3 - 4) * 5"; //ans = 175
+	String postfix = toPostfix(infix2);
+	assertEquals("11 2 + 3 * 4 - 5 * ", postfix);
+	assertFalse(expCheck("-3"));
+	parseRPN(postfix); //gives 175, correct
+
 
   }
   public boolean expCheck(String expression)
