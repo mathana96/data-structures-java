@@ -65,10 +65,16 @@ public class CalcEngine
 	{
 		try
 		{
-
-			String postfix = toPostfix(displayValue);
-			String ans = parseRPN(postfix);
-			displayValue = "Postfix: " + postfix + " | Ans: " + ans;
+			if (checkBalance.checker(displayValue))
+			{
+				String postfix = toPostfix(displayValue);
+				String ans = parseRPN(postfix);
+				displayValue = "Postfix: " + postfix + " | Ans: " + ans;
+			}
+			else
+			{
+				displayValue = "Parenthesis error. Clear and try again";
+			}
 
 		}
 		catch (Exception e)
