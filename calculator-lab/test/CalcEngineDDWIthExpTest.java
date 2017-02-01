@@ -1,10 +1,15 @@
+/**
+ * @author Mathana Sreedaran
+ * 
+ * Test class to investigate if the exponent property of the calculator is working 
+ * as intended. Double digits included.
+ */
 import static org.junit.Assert.*;
 
 import java.util.Stack;
 
 import org.junit.Test;
 
-import sun.tools.jar.resources.jar;
 
 public class CalcEngineDDWIthExpTest
 {

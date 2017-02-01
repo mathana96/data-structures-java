@@ -8,8 +8,7 @@ import javax.swing.border.*;
  * done here. This class is responsible just for putting up the display on 
  * screen. It then refers to the "CalcEngine" to do all the real work.
  * 
- * @author Michael Kolling
- * @version 31 July 2000
+ * @author Michael Kolling & Mathana Sreedaran
  */
 public class UserInterface
 implements ActionListener

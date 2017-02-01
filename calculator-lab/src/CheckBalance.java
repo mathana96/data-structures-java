@@ -1,9 +1,15 @@
+/**
+ * @author Mathana Sreedaran
+ * 
+ * This class checks for parenthesis balance. Adapted from the original class
+ * developed in a different lab session where all brackets, curly braces and parenthesis 
+ * were checked. In this class, only parenthesis is checked
+ */
 import java.util.Stack;
 
 public class CheckBalance
 {
-	boolean isBalanced;
-	String nextChar;
+	String nextChar; //nextChar or token
 	Stack<String> stack = new Stack<>(); //Stack of open delimiters 
 
 	public static void main(String args [])
@@ -17,7 +23,6 @@ public class CheckBalance
 
 	public boolean checker(String expression)
 	{
-		isBalanced = true;
 		int i = 0;
 		String[] tokens = splitToTokens(expression);
 		
@@ -44,7 +49,7 @@ public class CheckBalance
 				else
 				{
 					String openDelim = stack.peek();
-					if (checkPairs(openDelim, nextChar))
+					if (checkPairs(openDelim, nextChar)) //Check if they match
 					{
 						stack.pop();
 					}
@@ -72,6 +77,10 @@ public class CheckBalance
 
 	}
 
+	/**
+	 * 
+	 * Check if parenthesis opening and closing match
+	 */
 	public boolean checkPairs(String openDelim, String nextChar)
 	{
 		if ( (openDelim.equals("(")) && (nextChar.equals(")")) )
@@ -82,6 +91,9 @@ public class CheckBalance
 
 	}
 	
+	/**
+	 * Method to split a string into tokens with whitespace as the delimiter
+	 */
 	public String[] splitToTokens(String string)
 	{
 		string.trim();

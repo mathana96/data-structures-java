@@ -1,3 +1,9 @@
+/**
+ * @author Mathana Sreedaran
+ * 
+ * Interface with methods to implement my own stack using an ArrayList.
+ * These methods are inspired by the original Stack interface of Java
+ */
 import java.util.ArrayList;
 
 public interface MyOwnStackInterface

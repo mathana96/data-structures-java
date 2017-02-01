@@ -1,10 +1,13 @@
+/**
+ * @author Mathana Sreedaran
+ * 
+ * Test class to investigate the double digit capability of the calculator 
+ */
 import static org.junit.Assert.*;
 
 import java.util.Stack;
 
 import org.junit.Test;
-
-import sun.tools.jar.resources.jar;
 
 public class CalcEngineDoubleDigitTest
 {

@@ -4,7 +4,6 @@
  * get the calculator on screen.
  * 
  * @author Michael Kolling, Mathana Sreedaran
- * @version 31 July 2000
  */
 public class Calculator
 {

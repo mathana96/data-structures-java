@@ -1,3 +1,9 @@
+/**
+ * @author Mathana Sreedaran
+ * 
+ * Test class to play around with Java regular expression and to test 
+ * if the implementation of my tokenizer is as expected
+ */
 import static org.junit.Assert.*;
 
 import org.junit.Test;

@@ -1,3 +1,9 @@
+/**
+ * @author Mathana Sreedaran
+ * 
+ * Test class to investigate the infix to postfix converter with parenthesis
+ * and single digit capability of the calculator 
+ */
 import static org.junit.Assert.*;
 
 import java.util.Stack;

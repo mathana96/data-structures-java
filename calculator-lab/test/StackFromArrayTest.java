@@ -1,3 +1,8 @@
+/**
+ * @author Mathana Sreedaran
+ * 
+ * Test class for my stack implementation using the various interface methods
+ */
 import static org.junit.Assert.*;
 
 import java.util.Stack;

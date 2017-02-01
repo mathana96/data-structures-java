@@ -1,4 +1,10 @@
-
+/**
+ * 
+ * @author Mathana Sreedaran
+ *
+ *Attempt at implementstion of my own stack using an ArrayList and an interface
+ *based on the actual Stack interface of Java
+ */
 public class MyOwnStack implements MyOwnStackInterface
 {
 
