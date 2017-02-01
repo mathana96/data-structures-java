@@ -49,10 +49,10 @@ public class MyOwnStack implements MyOwnStackInterface
 	@Override
 	public int search(Object o)
 	{
-		for (int i=0; i<stackArray.size(); i++)
+		for (int i=stackArray.size()-1; i>=0; i--)
 		{
 			if (stackArray.get(i).equals(o))
-				return i+1;
+				return stackArray.size() - i;
 		}
 		return -1;
 	}

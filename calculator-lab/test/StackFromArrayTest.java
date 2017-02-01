@@ -21,8 +21,6 @@ public class StackFromArrayTest
 	@Before
 	public void setUp()
 	{
-
-
 		String name1 = "First";
 		String name2 = "Second";
 		javaStack.push(name1);
@@ -82,7 +80,7 @@ public class StackFromArrayTest
 
 	}
 
-	//@Test
+	@Test
 	public void testEmpty()
 	{
 		assertTrue(myStack.empty());
@@ -94,11 +92,29 @@ public class StackFromArrayTest
 		myStack.push(name4);
 
 		assertFalse(myStack.empty());
+		
+		myStack.clear();
+		
+		assertTrue(myStack.empty());
 	}
 
-	//@Test
+	@Test
 	public void testSearch()
 	{
-		System.out.println(javaStack.search("First"));
+		assertTrue(myStack.empty());
+
+		String name1 = "First";
+		String name2 = "Second";
+		String name3 = "Third";
+		String name4 = "Fourth";
+
+		myStack.push(name1);
+		myStack.push(name2);
+		myStack.push(name3);
+		myStack.push(name4);
+		
+		
+		assertEquals(1, myStack.search("Fourth"));
+		assertEquals(3, myStack.search("Second"));
 	}
 }
