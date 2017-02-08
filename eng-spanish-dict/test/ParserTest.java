@@ -1,22 +1,25 @@
 import static org.junit.Assert.*;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.util.PriorityQueue;
 import java.util.Scanner;
 
 import org.junit.Test;
+
+import models.Pair;
 
 public class ParserTest
 {
 	
 	String dictPath = "././data/spa-to-eng.txt";
+	PriorityQueue<Pair> pairs = new PriorityQueue<>();
 
 	@Test
 	public void test() throws Exception
 	{
 		readFile(dictPath);
+		System.out.println(pairs);	
+//		System.out.println(pairs.peek());
 	}
 
 	
@@ -38,8 +41,19 @@ public class ParserTest
 		while (rawPairs.hasNextLine())
 		{
 			String[] tokens = rawPairs.nextLine().replaceAll("\uFFFD", "").trim().split("\\t");
-			System.out.println("Spanish : " + tokens[0] + " | English : " + tokens[1]);			
+			
+			if (tokens.length == 2)
+			{
+				Pair pair = new Pair(tokens[0], tokens[1]);
+				pairs.add(pair);
+			}
+			else
+			{
+	      rawPairs.close();
+	      throw new Exception("Invalid token length: "+ tokens.length);
+			}
+			
 		}
-		rawPairs.close();
+		rawPairs.close();	
 	}
 }
