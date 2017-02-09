@@ -47,10 +47,10 @@ public class SiftTest
 	 */
 	public void siftUp()
 	{
-		
+		boolean greater = true;
 		int k = numbers.size() - 1;
 		
-		while (k > 0)
+		while (k > 0 && greater)
 		{
 			System.out.println(numbers);
 
@@ -67,7 +67,7 @@ public class SiftTest
 				k = p;
 			}
 			else
-				break;
+				greater = false;
 			
 		}
 	}
@@ -76,8 +76,9 @@ public class SiftTest
 	{
 		int k = 0;
 		int l = 2*k+1;
+		boolean greater = true;
 		
-		while(l < numbers.size())
+		while(l < numbers.size() && greater)
 		{
 			System.out.println(numbers);
 			int max = l, r = l+1;
@@ -97,7 +98,7 @@ public class SiftTest
 				l = 2*k+1; //Updating new left child
 			}
 			else
-				break;
+				greater = false;
 		}
 	}
 }

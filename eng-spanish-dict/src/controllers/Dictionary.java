@@ -29,7 +29,10 @@ public class Dictionary
 				break;
 
 			case "Add new pair":
-				String pair = JOptionPane.showInputDialog(frame, "Enter spanish word"); 
+				String spaEntry = JOptionPane.showInputDialog(frame, "Enter spanish word"); 
+				String engEntry = JOptionPane.showInputDialog(frame, "Enter english definition"); 
+				engine.addPair(spaEntry, engEntry);
+				JOptionPane.showMessageDialog(frame, "Entry added.\nEnglish word for " + "'" + spaEntry + "'" + " is " + "'" + engEntry + "'");
 				break;		
 			}
 		}

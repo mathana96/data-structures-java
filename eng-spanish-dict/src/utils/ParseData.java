@@ -51,10 +51,10 @@ public class ParseData
 	{
 		
 		int k = pairs.size() - 1;
+		boolean greater = true;
 		
-		while (k > 0)
+		while (k > 0 && greater)
 		{
-//			System.out.println(numbers);
 
 			int p = (k-1)/2;
 			Pair child = pairs.get(k);
@@ -68,7 +68,7 @@ public class ParseData
 				k = p;
 			}
 			else
-				break;	
+				greater = false;	
 		}
 	}
 

@@ -29,5 +29,36 @@ public class DictEngine
 		}
 		return "not found";
 	}
+	public void addPair(String spanish, String english)
+	{
+		Pair pair = new Pair(spanish, english);
+		pairs.add(pair);
+		siftUp();
+	}
+	
+	public void siftUp()
+	{
+		
+		int k = pairs.size() - 1;
+		boolean greater = true;
+		
+		while (k > 0 && greater)
+		{
+
+			int p = (k-1)/2;
+			Pair child = pairs.get(k);
+			Pair parent = pairs.get(p);
+			
+			if (child.compareTo(parent) > 0)
+			{
+				pairs.set(p, child);
+				pairs.set(k, parent);
+				
+				k = p;
+			}
+			else
+				greater = false;	
+		}
+	}
 
 }
