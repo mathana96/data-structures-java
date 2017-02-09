@@ -54,4 +54,14 @@ public class Pair implements Comparable<Pair>
 	{  
 		return Objects.hashCode(this.spanish); 
 	}
+	
+	public String getSpanish()
+	{
+		return this.spanish;
+	}
+	
+	public String getEnglish()
+	{
+		return this.english;
+	}
 }
