@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-import controllers.DictEngine;
 import models.Pair;
 
 public class AddPairTest
