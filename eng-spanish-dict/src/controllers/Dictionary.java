@@ -31,8 +31,8 @@ public class Dictionary
 			case "Add new pair":
 				String spaEntry = JOptionPane.showInputDialog(frame, "Enter spanish word"); 
 				String engEntry = JOptionPane.showInputDialog(frame, "Enter english definition"); 
-				engine.addPair(spaEntry, engEntry);
-				JOptionPane.showMessageDialog(frame, "Entry added.\nEnglish word for " + "'" + spaEntry + "'" + " is " + "'" + engEntry + "'");
+				String addOutput = engine.addPair(spaEntry, engEntry);
+				JOptionPane.showMessageDialog(frame, addOutput);
 				break;		
 			}
 		}

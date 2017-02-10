@@ -1,5 +1,8 @@
 package controllers;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -29,11 +32,23 @@ public class DictEngine
 		}
 		return "not found";
 	}
-	public void addPair(String spanish, String english)
+	
+	public String addPair(String spanish, String english) throws Exception
 	{
 		Pair pair = new Pair(spanish, english);
-		pairs.add(pair);
-		siftUp();
+		if (pairs.contains(pair))
+		{
+			return "The word " + "'" + spanish + "'" + " and it's definition already exists";
+		}
+		else
+		{
+			pairs.add(pair);
+			siftUp();
+			
+			writeToFile(spanish, english);
+			return "Entry added.\nEnglish word for " + "'" + spanish + "'" + " is " + "'" + english + "'";
+		}
+
 	}
 	
 	public void siftUp()
@@ -61,4 +76,16 @@ public class DictEngine
 		}
 	}
 
+	public void writeToFile(String spanish, String english) throws IOException
+	{
+		 File file = new File("././data/spa-to-eng.txt");
+		 
+		 FileWriter writer = new FileWriter(file, true); 
+		 
+		 
+		 writer.write("\n" + spanish + "\t" + english); 
+     writer.flush();
+     writer.close();
+     
+	}
 }
