@@ -1,6 +1,8 @@
 /**
  * @author Mathana Sreedaran
  * 
+ * This class holds the main method and the user interface methods
+ * 
  * Tutorial from http://alvinalexander.com/java/joptionpane-showinputdialog-examples
  */
 package controllers;

@@ -1,3 +1,8 @@
+/**
+ * @author mathana
+ * 
+ * Test class for adding dictionary word pairs
+ */
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;

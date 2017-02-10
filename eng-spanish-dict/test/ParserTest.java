@@ -1,3 +1,8 @@
+/**
+ * @author mathana
+ * 
+ * Test class for parsing list of dictionary entries
+ */
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;

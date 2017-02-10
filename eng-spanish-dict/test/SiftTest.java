@@ -1,3 +1,8 @@
+/**
+ * @author mathana
+ * 
+ * Test class for the sifting up and sifting down in a heap
+ */
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;

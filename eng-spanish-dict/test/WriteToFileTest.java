@@ -1,3 +1,8 @@
+/**
+ * @author mathana
+ * 
+ * Test class for writing to a local file
+ */
 import static org.junit.Assert.*;
 
 import java.io.File;

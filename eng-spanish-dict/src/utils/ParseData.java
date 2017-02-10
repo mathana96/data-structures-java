@@ -1,3 +1,9 @@
+/**
+ * @author mathana
+ * 
+ * Class where the raw, dirty data provided is parsed and stored into a heap
+ * backed by an ArrayList
+ */
 package utils;
 
 import java.io.File;

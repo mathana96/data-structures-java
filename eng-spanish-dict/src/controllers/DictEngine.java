@@ -1,3 +1,16 @@
+/**
+ * @author Mathana Sreedarab
+ * 
+ * The engine class is where the main methods are located. The methods
+ * are called upon from the Dictionary class to carry out the two basic 
+ * functions of the dictionary, which are search for the English definition of
+ * a Spanish word and add a new Spanish-English pair. 
+ * 
+ * Some of the code references used;
+ * 
+ * For JSwing: http://alvinalexander.com/java/joptionpane-showinputdialog-examples
+ * For writing to file: http://stackoverflow.com/questions/9961292/write-to-text-file-without-overwriting-in-java
+ */
 package controllers;
 
 import java.io.File;

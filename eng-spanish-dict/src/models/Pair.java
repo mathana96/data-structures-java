@@ -1,3 +1,8 @@
+/**
+ * @author Mathana Sreedaran
+ * 
+ * Class for Spanish-English word pairs
+ */
 package models;
 
 import com.google.common.base.Objects;

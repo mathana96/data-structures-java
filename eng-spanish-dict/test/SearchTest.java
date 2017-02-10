@@ -1,3 +1,8 @@
+/**
+ * @author Mathana Sreedaran
+ * 
+ * Test class for searching the english definition of a spanish key/entry
+ */
 import static org.junit.Assert.*;
 
 import org.junit.Test;
