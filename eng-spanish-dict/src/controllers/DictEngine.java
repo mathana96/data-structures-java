@@ -24,11 +24,11 @@ public class DictEngine
 	}
 	public String searchWord(String spanish)
 	{
-//		Preconditions.checkNotNull(spanish);
 		for (Pair pair: pairs)
 		{
 			if (pair.getSpanish().equals(spanish))
 				return pair.getEnglish();
+			
 		}
 		return "not found";
 	}
