@@ -24,9 +24,9 @@ public class Pair implements Comparable<Pair>
 	public int compareTo(Pair p)
 	{
 		if (this.spanish.compareTo(p.spanish) > 0)
-			return 1;
-		else if (this.spanish.compareTo(p.spanish) < 0)
 			return -1;
+		else if (this.spanish.compareTo(p.spanish) < 0)
+			return 1;
 		else
 			return 0;
 	}

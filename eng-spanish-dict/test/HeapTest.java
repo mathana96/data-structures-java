@@ -23,14 +23,22 @@ public class HeapTest
 	{
 		pairsHeap = parseData.readFile(path);
 		
+		
+	}
+	public void teardown()
+	{
+		pairsHeap.clear();
+		pairsSort.clear();
 	}
 	@Test
 	public void testMaxHeap() throws Exception
 	{
+		System.out.println(pairsHeap.get(0));
 		pairsSort =  parseData.readFile(path);
 		Collections.sort(pairsSort);
-		
+
 		assertEquals(pairsSort.get(0), pairsHeap.get(0));
+
 		
 	}
 

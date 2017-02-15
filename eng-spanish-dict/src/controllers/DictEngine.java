@@ -26,23 +26,32 @@ import utils.ParseData;
 
 public class DictEngine
 {
+	ParseData parseData = new ParseData();
 	String path = "././data/spa-to-eng.txt";
 	ArrayList<Pair> pairs = new ArrayList<>();
-	ParseData parseData = new ParseData();
 	
 	
+
 	public DictEngine() throws Exception
 	{
 		pairs = parseData.readFile(path);
+//		System.out.println(pairs);
 	}
 	public String searchWord(String spanish)
 	{
-		for (Pair pair: pairs)
+		
+		System.out.println("Total items: " + pairs.size());
+		for (int i=0; i<pairs.size(); i++)
 		{
+			Pair pair = pairs.get(i);
 			if (pair.getSpanish().equals(spanish))
+			{
+				System.out.println("Number of travels " + Integer.toString(i));
 				return pair.getEnglish();
-			
+			}
+
 		}
+
 		return "not found";
 	}
 	

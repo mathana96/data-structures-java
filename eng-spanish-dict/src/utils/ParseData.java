@@ -66,7 +66,7 @@ public class ParseData
 			Pair child = pairs.get(k);
 			Pair parent = pairs.get(p);
 			
-			if (child.compareTo(parent) > 0)
+			if (child.compareTo(parent) < 0)
 			{
 				pairs.set(p, child);
 				pairs.set(k, parent);
