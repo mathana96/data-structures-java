@@ -26,7 +26,8 @@ public class Dictionary
 			{
 			case "Search/Translate":
 				String spanish = JOptionPane.showInputDialog(frame, "Enter spanish word", "chica"); 
-				String english = engine.searchWord(spanish);
+				engine.searchWord(spanish, 0);
+				String english = engine.getSearchedWord();
 				JOptionPane.showMessageDialog(frame, "English word for " + "'" + spanish + "'" + " is " + "'" + english + "'");
 				break;
 

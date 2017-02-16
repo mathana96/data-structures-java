@@ -30,30 +30,67 @@ public class DictEngine
 	String path = "././data/spa-to-eng.txt";
 	ArrayList<Pair> pairs = new ArrayList<>();
 	
-	
+	int index = 0;
+	String english = "not found";
 
 	public DictEngine() throws Exception
 	{
 		pairs = parseData.readFile(path);
 //		System.out.println(pairs);
 	}
-	public String searchWord(String spanish)
+	
+	public void searchWord(String spanish, int index)
 	{
-		
-		System.out.println("Total items: " + pairs.size());
-		for (int i=0; i<pairs.size(); i++)
+		int leftChild = 2 * (index) + 1;
+		Pair pair = pairs.get(index);
+
+		if (pair.getSpanish().equals(spanish))
 		{
-			Pair pair = pairs.get(i);
-			if (pair.getSpanish().equals(spanish))
+			english = pair.getEnglish();
+		}
+		else
+		{
+			if ( (pair.getSpanish().compareTo(spanish) > 0) && (leftChild < pairs.size()) )//if worth going down
 			{
-				System.out.println("Number of travels " + Integer.toString(i));
-				return pair.getEnglish();
+				index = leftChild;
+				searchWord(spanish, index);
+
+				//				Crossing to the right node
+				int parent = (leftChild - 1) / 2;
+				int rightChild = 2 * (parent) + 2;
+				if (rightChild < pairs.size())
+				{
+					index = rightChild;
+					searchWord(spanish, index);
+				}
 			}
 
 		}
-
-		return "not found";
 	}
+	
+	public String getSearchedWord()
+	{
+		String word = english;
+		english = "not found";
+		return word;
+	}
+//	public String searchWord(String spanish)
+//	{
+//		
+//		System.out.println("Total items: " + pairs.size());
+//		for (int i=0; i<pairs.size(); i++)
+//		{
+//			Pair pair = pairs.get(i);
+//			if (pair.getSpanish().equals(spanish))
+//			{
+//				System.out.println("Number of travels " + Integer.toString(i));
+//				return pair.getEnglish();
+//			}
+//
+//		}
+//
+//		return "not found";
+//	}
 	
 	public String addPair(String spanish, String english) throws Exception
 	{

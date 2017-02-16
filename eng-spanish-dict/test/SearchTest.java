@@ -18,12 +18,15 @@ public class SearchTest
 	public void testSearch() throws Exception
 	{
 		engine = new DictEngine();
-		assertEquals("girl", engine.searchWord("chica"));
-		assertEquals("not found", engine.searchWord("BUNL"));
-		assertEquals("not found", engine.searchWord(""));
-		assertEquals("not found", engine.searchWord(null));
-		assertEquals("not found", engine.searchWord("$*&("));
-		assertEquals("not found", engine.searchWord("98897"));
+		engine.searchWord("chica",0);
+		assertEquals("girl", engine.getSearchedWord());
+		engine.searchWord("chicdsasda",0);
+		assertEquals("not found", engine.getSearchedWord());
+//		assertEquals("not found", engine.searchWord("BUNL",0));
+//		assertEquals("not found", engine.searchWord("",0));
+//		assertEquals("not found", engine.searchWord(null,0));
+//		assertEquals("not found", engine.searchWord("$*&(",0));
+//		assertEquals("not found", engine.searchWord("98897",0));
 	}
 
 }
