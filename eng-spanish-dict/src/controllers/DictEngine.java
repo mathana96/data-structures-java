@@ -39,6 +39,11 @@ public class DictEngine
 //		System.out.println(pairs);
 	}
 	
+	/**
+	 * Method to search the english definition of a spaish word
+	 * @param spanish
+	 * @param index
+	 */
 	public void searchWord(String spanish, int index)
 	{
 		int leftChild = 2 * (index) + 1;
@@ -68,6 +73,10 @@ public class DictEngine
 		}
 	}
 	
+	/**
+	 * 
+	 * @return searched English word
+	 */
 	public String getSearchedWord()
 	{
 		String word = english;
@@ -92,6 +101,13 @@ public class DictEngine
 //		return "not found";
 //	}
 	
+	/**
+	 * Add a new spanihs-english pair to the dictionary
+	 * @param spanish
+	 * @param english
+	 * @return
+	 * @throws Exception
+	 */
 	public String addPair(String spanish, String english) throws Exception
 	{
 		Pair pair = new Pair(spanish, english);
