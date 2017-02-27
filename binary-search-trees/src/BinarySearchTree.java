@@ -59,6 +59,26 @@ public class BinarySearchTree
 		return node;
 	}
 	
+	public int search(int data)
+	{
+		return search(root, data);
+	}
+	
+	private int search(Node node, int data)
+	{
+		if (node == null)
+			return 0;
+		else
+		{
+			if (data < node.data)
+				return search(node.left, data);
+			else if (data > node.data)
+				return search(node.right, data);
+			else
+				return node.data;
+		}
+	}
+	
 	/**
 	 * Class taken from;
 	 * https://github.com/camluca/Samples/blob/master/Tree.java
