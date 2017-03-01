@@ -8,11 +8,12 @@ public class TestBST
 {
 
 	BinarySearchTree tree = new BinarySearchTree();
+	int[] numbers = {23,76,5,32,2,8,4,9,6,40};
 	
 	@Test
 	public void testInsert()
 	{	
-		int[] numbers = {23,76,5,32,2,8,4,9,6};
+		
 		for (int num : numbers)
 		{
 			
@@ -20,13 +21,11 @@ public class TestBST
 		}
 		
 		tree.displayTree(); //Pretty print the tree
-		
 	}
 	
 	@Test
 	public void testSearch()
 	{
-		int[] numbers = {23,76,5,32,2,8,4,9,6};
 		for (int num : numbers)
 		{
 			

@@ -110,7 +110,13 @@ public class DictEngine
 	 */
 	public String addPair(String spanish, String english) throws Exception
 	{
+				
+		if ( (english.equals("") || spanish.equals("")) )
+			return "Null/Empty values not allowed";
+		
 		Pair pair = new Pair(spanish, english);
+		
+		
 		if (pairs.contains(pair))
 		{
 			return "The word " + "'" + spanish + "'" + " and it's definition already exists";
