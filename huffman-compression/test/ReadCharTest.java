@@ -3,6 +3,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import controllers.HuffmanTree;
+import models.Node;
 
 
 public class ReadCharTest
@@ -31,7 +32,10 @@ public class ReadCharTest
 			huffmantree.buildMap(word.charAt(i));
 		}
 		
-		huffmantree.buildTrie();
+		Node node = huffmantree.buildTrie();
+//		huffmantree.displayTree(node);
+		System.out.println("Char" + "\t" + "Freq" + "\t" + "Huffman");
+		huffmantree.printTrie(node);
 	}
 
 	

@@ -13,12 +13,8 @@ public class HuffmanTree
 	HashMap<Character, Integer> freqMap = new HashMap<>();
 	
 	public Node root;
-	/**
-	 * 
-	 * Inner class. Some guidelines here
-	 * http://stackoverflow.com/questions/18396016/when-to-use-inner-classes-in-java-for-helper-classes
-	 *
-	 */
+
+	String code = "";
 	
 	public HuffmanTree()
 	{
@@ -45,7 +41,7 @@ public class HuffmanTree
 		System.out.println(freqMap);
 	}
 	
-	public void buildTrie()
+	public Node buildTrie()
 	{
 //		Build individual tries
 		freqMap.forEach((k,v) -> 
@@ -57,115 +53,105 @@ public class HuffmanTree
 					}
 				}); 
 		
-		while (!pq.isEmpty())
-		{
-			System.out.println(pq.poll());
-		}
-//		Join them up nice and good
-//		while(pq.size() > 1)
+//		while (!pq.isEmpty())
 //		{
-//			
+//			System.out.println(pq.poll());
 //		}
+		
+//		Join them up nice and good
+		while(pq.size() > 1)
+		{
+			Node left = pq.poll();
+			Node right = pq.poll();
+		
+			Node parent = new Node('z', left.freq + right.freq, left, right);
+			
+			pq.add(parent);
+//			System.out.println(pq);
+		}
+		return pq.poll();
 	}
 	
+	public boolean isLeaf(Node node)
+	{
+		if ( (node.left == null) && (node.right == null) )
+			return true;
+		else
+			return false;
+	}
 	
-//	
-//	/**
-//	 * Public client method used for recursive calls to private helper methods
-//	 * 
-//	 */
-//	public void insert(int data)
-//	{
-//		root = insert(root, data);
-//	}
-//	
-//	/**
-//	 * Private helper method. Recursive insert
-//	 * @param node the node
-//	 * @param data the data of the node
-//	 */
-//	private Node insert(Node node, int data) //Given a pointer to a node, insert data
-//	{
-//		if (node == null)
-//			node = new Node(data); //Create a new node if null at where pointer is
-//		else
-//		{
-//			if (data < node.data)
-//				node.left = insert(node.left, data); //Put whatever returned by the call into the left child
-//			else if (data > node.data)
-//				node.right = insert(node.right, data);
-//			else // if (data is the same as the node's data), replace it 
-//				node.data = data;
-//		}	
-//		return node;
-//	}
-//	
-//	public int search(int data)
-//	{
-//		return search(root, data);
-//	}
-//	
-//	private int search(Node node, int data)
-//	{
-//		if (node == null)
-//			return 0;
-//		else
-//		{
-//			if (data < node.data)
-//				return search(node.left, data);
-//			else if (data > node.data)
-//				return search(node.right, data);
-//			else
-//				return node.data;
-//		}
-//	}
-//	
-//	/**
-//	 * Class taken from;
-//	 * https://github.com/camluca/Samples/blob/master/Tree.java
-//	 */
-//	public void displayTree()
-//	{
-//		Node r = root;
-//		Stack<Node> globalStack = new Stack<>();
-//		globalStack.push(r);	
-//		int emptyLeaf = 32;
-//		boolean isRowEmpty = false;
-//		System.out.println("****......................................................****");
-//		while(isRowEmpty==false)
-//		{
-//
-//			Stack<Node> localStack = new Stack<>();
-//			isRowEmpty = true;
-//			for(int j=0; j<emptyLeaf; j++)
-//				System.out.print(' ');
-//			while(globalStack.isEmpty()==false)
-//			{
-//				Node temp = globalStack.pop();
-//				if(temp != null)
-//				{
-//					System.out.print(temp.data);
-//					localStack.push(temp.left);
-//					localStack.push(temp.right);
-//					if(temp.left != null ||temp.right != null)
-//						isRowEmpty = false;
-//				}
-//				else
-//				{
-//					System.out.print("--");
-//					localStack.push(null);
-//					localStack.push(null);
-//				}
-//				for(int j=0; j<emptyLeaf*2-2; j++)
-//					System.out.print(' ');
-//			}
-//			System.out.println();
-//			emptyLeaf /= 2;
-//			while(localStack.isEmpty()==false)
-//				globalStack.push( localStack.pop() );
-//		}
-//	System.out.println("****......................................................****");
-//	} 
-//
-//	
+	public void printTrie(Node node)
+	{
+		if (isLeaf(node))
+		{
+			System.out.println(node.data + "\t" + node.freq + "\t" + code);
+//			System.out.println("firstcode" + code);
+//			if (code.length() > 1)
+//				
+//			System.out.println("cut code" + code);
+			
+		}
+		else
+		{
+			code += "0";
+			printTrie(node.left);
+			
+			code = code.substring(0,code.length()-1);
+			
+			code += "1";
+			printTrie(node.right);
+			
+			code = code.substring(0,code.length()-1);
+		}
+		
+	}
+
+	/**
+	 * Class taken from;
+	 * https://github.com/camluca/Samples/blob/master/Tree.java
+	 */
+	public void displayTree(Node node)
+	{
+		Node r = node;
+		Stack<Node> globalStack = new Stack<>();
+		globalStack.push(r);	
+		int emptyLeaf = 32;
+		boolean isRowEmpty = false;
+		System.out.println("****......................................................****");
+		while(isRowEmpty==false)
+		{
+
+			Stack<Node> localStack = new Stack<>();
+			isRowEmpty = true;
+			for(int j=0; j<emptyLeaf; j++)
+				System.out.print(' ');
+			while(globalStack.isEmpty()==false)
+			{
+				Node temp = globalStack.pop();
+				if(temp != null)
+				{
+					System.out.print(temp.data);
+					localStack.push(temp.left);
+					localStack.push(temp.right);
+					if(temp.left != null ||temp.right != null)
+						isRowEmpty = false;
+				}
+				else
+				{
+					System.out.print("--");
+					localStack.push(null);
+					localStack.push(null);
+				}
+				for(int j=0; j<emptyLeaf*2-2; j++)
+					System.out.print(' ');
+			}
+			System.out.println();
+			emptyLeaf /= 2;
+			while(localStack.isEmpty()==false)
+				globalStack.push( localStack.pop() );
+		}
+	System.out.println("****......................................................****");
+	} 
+
+	
 }

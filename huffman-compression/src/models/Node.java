@@ -6,10 +6,10 @@ import com.google.common.base.Objects;
 
 public class Node implements Comparable<Node>
 {
-	private Character data;
-	private int freq;
-	private Node left;
-	private Node right;
+	public Character data;
+	public int freq;
+	public Node left;
+	public Node right;
 	
 	public Node(Character data, int freq, Node left, Node right)
 	{
