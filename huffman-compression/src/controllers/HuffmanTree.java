@@ -3,13 +3,14 @@ import java.util.HashMap;
 import java.util.PriorityQueue;
 import java.util.Stack;
 
+
 import models.Node;
 
 public class HuffmanTree
 {
 	
-	PriorityQueue<Node> queue = new PriorityQueue<>();
-	HashMap<Character, Integer> map = new HashMap<>();
+	PriorityQueue<Node> pq = new PriorityQueue<>();
+	HashMap<Character, Integer> freqMap = new HashMap<>();
 	
 	public Node root;
 	/**
@@ -27,24 +28,45 @@ public class HuffmanTree
 	public void buildMap(Character data)
 	{
 //		Node node = new Node(data);
-		if (map.containsKey(data))
+		if (freqMap.containsKey(data))
 		{
-			Integer freq = map.get(data);
-			map.replace(data, freq+1);
+			Integer freq = freqMap.get(data);
+			freqMap.replace(data, freq+1);
 		}
 		else
 		{
-			map.put(data, 1);
+			freqMap.put(data, 1);
 		}
 		
 	}
 	
 	public void printMap()
 	{
-		System.out.println(map);
+		System.out.println(freqMap);
 	}
 	
-	
+	public void buildTrie()
+	{
+//		Build individual tries
+		freqMap.forEach((k,v) -> 
+				{
+					if (v > 0)
+					{
+						Node node = new Node(k, v, null, null);
+						pq.add(node);
+					}
+				}); 
+		
+		while (!pq.isEmpty())
+		{
+			System.out.println(pq.poll());
+		}
+//		Join them up nice and good
+//		while(pq.size() > 1)
+//		{
+//			
+//		}
+	}
 	
 	
 //	
