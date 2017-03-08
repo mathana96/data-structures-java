@@ -21,9 +21,20 @@ public class HuffmanTree
 		this.root = null;
 	}
 	
-	public void buildMap(Character data)
+	public void buildMap(String s)
 	{
-//		Node node = new Node(data);
+		Character special = '\u2020'; 
+		for (int i=0; i<s.length(); i++)
+		{
+			buildMap(s.charAt(i));
+		}
+		buildMap(special);
+		
+	}
+	
+	private void buildMap(Character data)
+	{
+
 		if (freqMap.containsKey(data))
 		{
 			Integer freq = freqMap.get(data);
@@ -53,11 +64,6 @@ public class HuffmanTree
 					}
 				}); 
 		
-//		while (!pq.isEmpty())
-//		{
-//			System.out.println(pq.poll());
-//		}
-		
 //		Join them up nice and good
 		while(pq.size() > 1)
 		{
@@ -85,10 +91,6 @@ public class HuffmanTree
 		if (isLeaf(node))
 		{
 			System.out.println(node.data + "\t" + node.freq + "\t" + code);
-//			System.out.println("firstcode" + code);
-//			if (code.length() > 1)
-//				
-//			System.out.println("cut code" + code);
 			
 		}
 		else

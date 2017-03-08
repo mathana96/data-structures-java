@@ -15,11 +15,7 @@ public class ReadCharTest
 	public void testBuildMap()
 	{
 		String word = "hello world";
-		for (int i=0; i<word.length(); i++)
-		{
-			huffmantree.buildMap(word.charAt(i));
-		}
-		
+		huffmantree.buildMap(word);
 		huffmantree.printMap();
 	}
 	
@@ -27,16 +23,21 @@ public class ReadCharTest
 	public void testBuildTrie()
 	{
 		String word = "hello world";
-		for (int i=0; i<word.length(); i++)
-		{
-			huffmantree.buildMap(word.charAt(i));
-		}
+		huffmantree.buildMap(word);
 		
 		Node node = huffmantree.buildTrie();
 //		huffmantree.displayTree(node);
 		System.out.println("Char" + "\t" + "Freq" + "\t" + "Huffman");
 		huffmantree.printTrie(node);
 	}
+	
+//	@Test
+//	public void testParseString()
+//	{
+//		Character[] characters = huffmantree.parseString("hello world");
+//		for (int i=0; )
+//		System.out.println(characters);
+//	}
 
 	
 
