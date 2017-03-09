@@ -11,19 +11,19 @@ public class HuffmanTree
 	
 	PriorityQueue<Node> pq = new PriorityQueue<>();
 	HashMap<Character, Integer> freqMap = new HashMap<>();
+	HashMap<Character, String> huffmanMap = new HashMap<>();
 	
-	public Node root;
+	static final Character special = '\u2020'; 
 
 	String code = "";
 	
 	public HuffmanTree()
 	{
-		this.root = null;
+		
 	}
 	
 	public void buildMap(String s)
 	{
-		Character special = '\u2020'; 
 		for (int i=0; i<s.length(); i++)
 		{
 			buildMap(s.charAt(i));
@@ -86,11 +86,16 @@ public class HuffmanTree
 			return false;
 	}
 	
+	/**
+	 * Gets individual character's huffman code
+	 * @param node
+	 */
 	public void printTrie(Node node)
 	{
 		if (isLeaf(node))
 		{
 			System.out.println(node.data + "\t" + node.freq + "\t" + code);
+			huffmanMap.put(node.data, code);
 			
 		}
 		else
@@ -107,5 +112,16 @@ public class HuffmanTree
 		}
 		
 	}
+	
+	public String generateHuffman(String s)
+	{
+		String huffman = "";
+		for (int i=0; i<s.length(); i++)
+		{
+			huffman += huffmanMap.get(s.charAt(i));
+		}
+		return huffman += huffmanMap.get(special);
+	}
+	
 	
 }

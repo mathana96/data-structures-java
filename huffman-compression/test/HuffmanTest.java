@@ -6,12 +6,12 @@ import controllers.HuffmanTree;
 import models.Node;
 
 
-public class ReadCharTest
+public class HuffmanTest
 {
 
 	HuffmanTree huffmantree = new HuffmanTree();
 
-	@Test
+//	@Test
 	public void testBuildMap()
 	{
 		String word = "hello world";
@@ -19,8 +19,8 @@ public class ReadCharTest
 		huffmantree.printMap();
 	}
 	
-	@Test
-	public void testBuildTrie()
+//	@Test
+	public void testBuildAndPrintTrie()
 	{
 		String word = "hello world";
 		huffmantree.buildMap(word);
@@ -31,13 +31,18 @@ public class ReadCharTest
 		huffmantree.printTrie(node);
 	}
 	
-//	@Test
-//	public void testParseString()
-//	{
-//		Character[] characters = huffmantree.parseString("hello world");
-//		for (int i=0; )
-//		System.out.println(characters);
-//	}
+	@Test
+	public void testGenerateHuffman()
+	{
+		String word = "hello world";
+		huffmantree.buildMap(word);
+		
+		Node node = huffmantree.buildTrie();
+		
+		huffmantree.printTrie(node);
+		
+		System.out.println(huffmantree.generateHuffman(word));
+	}
 
 	
 
