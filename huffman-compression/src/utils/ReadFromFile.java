@@ -23,7 +23,7 @@ public class ReadFromFile
 		{ 
 			sb.append(line); 
 		}
-
+		System.out.println("Read complete");
 		
 	}
 	
