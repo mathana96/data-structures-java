@@ -17,6 +17,7 @@ public class HuffmanDriver
 		HuffmanTree huffmanTree = new HuffmanTree();
 		huffmanTree.buildMap(toCompress);
 		Node node = huffmanTree.buildTrie();
+		System.out.println("Char" + "\t" + "Freq" + "\t" + "Huffman");
 		huffmanTree.printTrie(node);
 		String compressed = huffmanTree.generateHuffman(toCompress);
 		
