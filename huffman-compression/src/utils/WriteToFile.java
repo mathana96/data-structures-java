@@ -1,3 +1,8 @@
+/**
+ * @author mathana
+ * 
+ * Class to write content to file
+ */
 package utils;
 
 import java.io.File;

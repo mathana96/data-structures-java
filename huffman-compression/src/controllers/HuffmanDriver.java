@@ -1,3 +1,9 @@
+/**
+ * @author mathana
+ * 
+ * Driver class to run the Huffman Code program. This project acts as a 
+ * proof of concept only. 
+ */
 package controllers;
 
 import models.Node;
@@ -20,6 +26,7 @@ public class HuffmanDriver
 		System.out.println("Char" + "\t" + "Freq" + "\t" + "Huffman");
 		huffmanTree.printTrie(node);
 		String compressed = huffmanTree.generateHuffman(toCompress);
+
 		
 		WriteToFile writer = new WriteToFile(compressed);
 	}

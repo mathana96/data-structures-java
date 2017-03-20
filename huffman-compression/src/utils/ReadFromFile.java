@@ -1,3 +1,6 @@
+/**
+ * Class to read contents of a file
+ */
 package utils;
 
 import java.io.File;

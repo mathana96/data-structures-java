@@ -11,7 +11,7 @@ public class HuffmanTest
 
 	HuffmanTree huffmantree = new HuffmanTree();
 
-//	@Test
+	@Test
 	public void testBuildMap()
 	{
 		String word = "hello world";
@@ -19,7 +19,7 @@ public class HuffmanTest
 		huffmantree.printMap();
 	}
 	
-//	@Test
+	@Test
 	public void testBuildAndPrintTrie()
 	{
 		String word = "hello world";

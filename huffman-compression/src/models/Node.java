@@ -1,3 +1,8 @@
+/**
+ * @author mathana
+ * 
+ * Node class to represent a node in the huffman tree
+ */
 package models;
 
 import static com.google.common.base.MoreObjects.toStringHelper;
