@@ -149,7 +149,7 @@ public class HuffmanTree
 		String huffman = "";
 		for (int i=0; i<s.length(); i++)
 		{
-			huffman += huffmanMap.get(s.charAt(i)) + "\n";
+			huffman += huffmanMap.get(s.charAt(i));
 		}
 		return huffman += huffmanMap.get(special);
 	}
