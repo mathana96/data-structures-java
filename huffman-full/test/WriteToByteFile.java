@@ -2,23 +2,14 @@
  * GUAVA I/O: http://www.baeldung.com/guava-write-to-file-read-from-file
  */
 
-import static org.junit.Assert.*;
-
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
+
 import java.io.IOException;
-import java.math.BigInteger;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import com.google.common.base.Charsets;
-import com.google.common.io.BaseEncoding;
-import com.google.common.io.Files;
 
 import org.junit.Test;
 
@@ -27,75 +18,10 @@ import org.junit.Test;
 public class WriteToByteFile
 {
 
-
-
-
-	//	@Test
-	public void test() throws IOException
+	@Test
+	public void testByteArray() throws Exception
 	{
-		String expectedValue = "Hello world";
-		File file = new File("test.txt");
-		Files.write(expectedValue, file, Charsets.UTF_8);
-		String result = Files.toString(file, Charsets.UTF_8);
-		assertEquals(expectedValue, result);
-	}
-
-	//	@Test
-	public void test2() throws IOException
-	{
-		String test;
-
-		File file = new File("testoutput.dat");
-
-		FileOutputStream outputStream = new FileOutputStream(file);
-
-		//		FileWriter writer = new FileWriter(file); 
-
-		Integer out = 12345678;
-
-
-		byte[] bytes = new byte[100];
-
-		//		bytes[0] = out;
-
-		outputStream.write(bytes);
-
-		outputStream.close();
-
-		//		writer.write(bytes);
-		//		for (int i=0; i<test.length()-1; i++)
-		//		{
-		//			out = Integer.parseInt(test.substring(i, i+1));
-		//			writer.write(out); 
-		//		}
-		//		Integer out = Integer.parseInt(test, 10);
-
-		//		writer.flush();
-		//		writer.close();
-		System.out.println("Write to file complete");
-	}
-
-	//	@Test
-	public void test3() throws IOException
-	{
-		FileOutputStream fout = new FileOutputStream("testoutput.dat");    
-		FileInputStream in = new FileInputStream("testoutput.dat");
-
-		String b = "1111111";
-
-		byte[] bytes = new BigInteger(b, 2).toByteArray();
-
-		fout.write(bytes);
-
-		//		System.out.println(bytes[0]);
-		System.out.println(in.read());
-
-	}
-
-	//	@Test
-	public void test4() throws Exception
-	{
-		FileOutputStream fout = new FileOutputStream("testoutput.dat"); 
+		FileOutputStream fout = new FileOutputStream("testoutputbyte.dat"); 
 		String b = "1000111";
 		String b2 = "1000111";
 
@@ -109,7 +35,7 @@ public class WriteToByteFile
 	}
 
 	@Test
-	public void test5() throws Exception
+	public void testWritingToFile() throws Exception
 	{
 		FileOutputStream fout = new FileOutputStream("testoutput.dat");
 		FileInputStream fin = new FileInputStream("testoutput.dat");
@@ -124,29 +50,73 @@ public class WriteToByteFile
 		int i = 0;
 		int j = 0;
 		int k = 0;
-		while ( (b.length() - i) > 7 ) 
+		while ( (b.length() - i) >= 7 ) 
 		{
 			j = i + 7; 
 			String chunk = b.substring(i, j);
 			System.out.println("Chunk " + chunk);
 			Byte byteChuck = Byte.parseByte(chunk, 2);
 			System.out.println("Byte Chuck " + byteChuck);
+
+			//			Need to add leading zeros to lone below
 			System.out.println("Byte to String " + Integer.toBinaryString(byteChuck));
 			array[k] = byteChuck;
-//			System.out.println("Array " + array[k]);
+			System.out.println("Array " + array[k]);
 			//			System.out.println(array[1]);
 			i = j;
 			k++;
 		}
+
+		//		int remainingNumOfBits = b.length() - i;
+
+		String remainingChunk = b.substring( i, b.length() );
+		String chunk = "0";
+		System.out.println(remainingChunk);
+		while (chunk.length() < (7 - remainingChunk.length()) )
+		{
+			chunk += "0";
+		}
+		chunk += remainingChunk;
+
+		System.out.println("Remaining chunk " + chunk);
+		Byte byteChuck = Byte.parseByte(chunk, 2);
+		array[k] = byteChuck;
+
+
 		System.out.println(i + " " + j);
 
 
 		fout.write(array);
 		fout.close();
 
+	}
+
+	@Test
+	public void testReadingFromFile() throws IOException
+	{
 		Path path = Paths.get("testoutput.dat");
 		byte[] data = java.nio.file.Files.readAllBytes(path);
-		System.out.println(data[0]);
+
+
+		for (int i=0; i<data.length; i++)
+		{
+			String theByte = Integer.toBinaryString(data[i]);
+			String correctedByte = "0";
+			if (theByte.length() < 7)
+			{
+				while (correctedByte.length() < (7 - theByte.length()))
+				{
+					correctedByte += "0";	
+				}
+				correctedByte += theByte;
+				System.out.println(correctedByte);
+			}
+			else
+			{
+				System.out.println(theByte);
+			}
+
+		}
 	}
 
 }
