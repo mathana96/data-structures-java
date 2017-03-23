@@ -27,17 +27,25 @@ public class HuffmanDriver
 		huffmanTree.printTrie(node);
 		String compressed = huffmanTree.generateHuffman(toCompress);
 		
-		byte[] data = huffmanTree.parseStringToBytes(compressed);
+//		System.out.println("Compressed : " + compressed);
 		
-		huffmanTree.preOrderWrite(node);
 		
-		byte[] ident = huffmanTree.generateHeaderIdentifier();
-		byte[] preOrder = huffmanTree.generateHeaderPreOrder();
+		String longdata = huffmanTree.generateHeaderIdentifier() + huffmanTree.preOrderWrite + compressed;
 		
-		huffmanTree.writeBytesToFile(ident, preOrder, data);
+		byte[] longdataarray = huffmanTree.parseStringToBytes(longdata);
+		
+		huffmanTree.writeBytesToFile(longdataarray);
+//		byte[] data = huffmanTree.parseStringToBytes(compressed);
+//		
+//		huffmanTree.preOrderWrite(node);
+//		
+//		byte[] ident = huffmanTree.generateHeaderIdentifier();
+//		byte[] preOrder = huffmanTree.generateHeaderPreOrder();
+//		
+//		huffmanTree.writeBytesToFile(ident, preOrder, data);
 		
 
-		huffmanTree.readBytesFromFile();
+//		huffmanTree.readBytesFromFile();
 		
 		
 //		WriteToFile writer = new WriteToFile(compressed);

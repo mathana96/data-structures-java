@@ -164,37 +164,46 @@ public class HuffmanTree
 
 	public byte[] parseStringToBytes(String b) throws Exception
 	{		
-		//		System.out.println("Length of code " + b.length());
-
+		int arraySize = ( ( (b.length()/6) + b.length() ) /7 ) + 1;
 		//		Length of huffman string / 7 (7 bits in an array position) + 1 extra for left over
-		byte[] array = new byte[(b.length()/7) + 1];
+		byte[] array = new byte[arraySize];
 
 		int i = 0; //Start index
 		int j = 0; //End index
 		int k = 0; //Byte array index
-		while ( (b.length() - i) >= 7 ) 
+		while ( (b.length() - i) >= 6 ) 
 		{
-			j = i + 7; 
+			j = i + 6; 
 			String chunk = b.substring(i, j); //Extracting a chunk of 7 bits
-			Byte byteChuck = Byte.parseByte(chunk, 2); //Converting into 1 byte
-			array[k] = byteChuck; //Putting byte into array
+			chunk = "1" + chunk;
+
+			array[k] = Byte.parseByte(chunk, 2); //Converting into 1 byte and putting byte into array
+			Integer decimalInt = Byte.toUnsignedInt(array[k]);
+
+			//			System.out.println(Integer.toString(decimalInt, 2));
+
 			i = j;
 			k++;
 		}
 
-		if ( (b.length()%7.0) != 0.0 ) //Only do if there are extra bits 
+
+		if ((b.length() % 6.0) != 0.0) //Only do if there are extra bits 
 		{
+
 			//		The left over bits. Need to be padded with zeros
 			String remainingChunk = b.substring(i, b.length());
-			String chunk = "0";
-			while (chunk.length() < (7 - remainingChunk.length()) )
-			{
-				chunk += "0"; //Padding 0s
-			}
-			chunk += remainingChunk;
-			Byte byteChuck = Byte.parseByte(remainingChunk, 2);
-			array[k] = byteChuck;
-		}
+			
+			remainingChunk = correctLeadingZeros(remainingChunk);
+
+			remainingChunk = "1" + remainingChunk;
+			//			while (chunk.length() < (7 - remainingChunk.length()) )
+			//			{
+			//				chunk += "0"; //Padding 0s
+			//			}
+//			chunk += remainingChunk;
+			array[k] = Byte.parseByte(remainingChunk, 2);
+		
+		} 
 
 		return array;
 
@@ -210,7 +219,7 @@ public class HuffmanTree
 			String asciiBinary = Integer.toBinaryString(ascii);
 			if (asciiBinary.length() < 7)
 			{
-				asciiBinary = correctAscii(asciiBinary);
+				asciiBinary = correctLeadingZeros(asciiBinary);
 			}
 			preOrderWrite += asciiBinary;
 		}
@@ -224,49 +233,54 @@ public class HuffmanTree
 		}
 	}
 
-	public String correctAscii(String s)
+
+	public String padWithZeros(String s)
 	{
-		while (s.length() < 7)
+		while (s.length() < 5)
+		{
+			s += "0";
+		}
+		return s;
+	}
+
+	public String correctLeadingZeros(String s)
+	{
+		while (s.length() < 6)
 		{
 			s = "0" + s;
 		}
 		return s;
 	}
 
-	public byte[] generateHeaderIdentifier() throws Exception
+	public String generateHeaderIdentifier() throws Exception
 	{
 		int identifier = 0xCADD099;
 		String binIdent = Integer.toBinaryString(identifier);
-//		binIdent = "0000" + binIdent;
-		byte[] headerIdentArray = parseStringToBytes(binIdent);
-//		System.out.println(headerIdentArray[0]);
-//		System.out.println(headerIdentArray[1]);
-//		System.out.println(headerIdentArray[2]);
-//		System.out.println(headerIdentArray[3]);
+
+//		System.out.println("Identifier :" + binIdent);
+//		//		binIdent = "0000" + binIdent;
+//		byte[] headerIdentArray = parseStringToBytes(binIdent);
+		//		System.out.println(headerIdentArray[0]);
+		//		System.out.println(headerIdentArray[1]);
+		//		System.out.println(headerIdentArray[2]);
+		//		System.out.println(headerIdentArray[3]);
 		// 0 , 1, 2, 3		
 
-		return headerIdentArray;
+		return binIdent;
 
 	}
 
-	public byte[] generateHeaderPreOrder() throws Exception
+
+	public void writeBytesToFile(byte[] byteArray) throws IOException
 	{
+		File file = new File("././data/compressed.dat");
+		FileOutputStream fout = new FileOutputStream(file);
 
-		byte[] headerPreOrderArray = parseStringToBytes(preOrderWrite);
-		// 0 , 1, 2, 3		
 
-		return headerPreOrderArray;
-		//		headerArray[0] = Integer.pa
 
-	}
-
-	public void writeBytesToFile(byte[] headerIdentArray, byte[] headerPreOrderArray, byte[] dataArray) throws IOException
-	{
-		FileOutputStream fout = new FileOutputStream("././data/compressed.dat");
-
-		fout.write(headerIdentArray);
-		fout.write(headerPreOrderArray);
-		fout.write(dataArray);
+//		fout.write(headerIdentArray);
+//		fout.write(headerPreOrderArray);
+		fout.write(byteArray);
 
 		System.out.println("Write to file complete");
 		//		fout.write(array);
@@ -274,20 +288,4 @@ public class HuffmanTree
 
 	}
 
-	public void readBytesFromFile() throws IOException
-	{
-		String output = "";
-		
-		File file = new File("././data/compressed.dat");
-
-		FileInputStream fin = new FileInputStream(file);
-
-		Integer in = fin.read();
-		
-		System.out.println(Integer.toString(in));
-		
-		//First 4 bits are identifier, working!
-
-
-	}
 }
