@@ -28,7 +28,7 @@ public class StringToBinaryTest
 		System.out.println(s);
 	}
 
-//	@Test
+	@Test
 	public void test3()
 	{
 		int identifier = 0xCADD099;
@@ -47,7 +47,7 @@ public class StringToBinaryTest
 	
 //	take 6 bits and Append 1. when reading out, subtract 64. 
 	
-	@Test
+//	@Test
 	public void test5()
 	{
 		System.out.println("HI");

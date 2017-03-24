@@ -193,7 +193,7 @@ public class HuffmanTree
 			//		The left over bits. Need to be padded with zeros
 			String remainingChunk = b.substring(i, b.length());
 			
-			remainingChunk = correctLeadingZeros(remainingChunk);
+			remainingChunk = padWithZeros(remainingChunk);
 
 			remainingChunk = "1" + remainingChunk;
 			//			while (chunk.length() < (7 - remainingChunk.length()) )
@@ -236,7 +236,7 @@ public class HuffmanTree
 
 	public String padWithZeros(String s)
 	{
-		while (s.length() < 5)
+		while (s.length() < 6)
 		{
 			s += "0";
 		}
@@ -286,6 +286,27 @@ public class HuffmanTree
 		//		fout.write(array);
 		fout.close();
 
+	}
+	
+	public String getPreOrderWrite()
+	{
+		int treeSize = preOrderWrite.length();
+		String tree = Integer.toBinaryString(treeSize);
+//		System.out.println(preOrderWrite);
+		
+		if (tree.length() < 14)
+			tree = correctLeadingZerosTree(tree);
+		
+		return tree + preOrderWrite;
+	}
+	
+	public String correctLeadingZerosTree(String s)
+	{
+		while (s.length() < 14)
+		{
+			s = "0" + s;
+		}
+		return s;
 	}
 
 }
