@@ -297,7 +297,7 @@ public class HuffmanTree
 		if (tree.length() < 14)
 			tree = correctLeadingZerosTree(tree);
 		
-		return tree + preOrderWrite;
+		return tree;
 	}
 	
 	public String correctLeadingZerosTree(String s)
