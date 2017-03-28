@@ -27,6 +27,8 @@ public class DecompressTest
 	String textOutput = "";
 	String trieCode = "";
 	int treeIndex = -1;
+	int codeIndex = -1;
+	boolean EOF = false;
 	//	int trieLength = 0;
 
 	@Test
@@ -61,12 +63,59 @@ public class DecompressTest
 			System.out.println("Triestart index: " + trieStart + " trieend: " + (trieStart+trieLength));
 			trieCode = cleanPayload.substring(trieStart, trieStart + trieLength);
 			Node root = buildTrie();
-			System.out.println("freq" + root.freq);
+
+			codeIndex += trieStart + trieLength;
+
+			while (!EOF)
+			{
+				decoderMF(root);
+			}
+			//			System.out.println("freq" + root.freq);
 			//			System.out.println(trieLength);
 		}
 
 	}
 
+
+
+	public void decoderMF(Node node)
+	{
+
+		if (node.data != '#')
+		{
+			if (isLeaf(node))
+			{
+
+				System.out.println(node.data);
+
+			} else
+			{
+				if (getNextCharCode() == '0')
+					decoderMF(node.left);
+				else
+					decoderMF(node.right);
+			} 
+		}
+		else
+		{
+			EOF = true;
+		}
+
+	}
+
+	public char getNextCharCode()
+	{
+		codeIndex++;
+		//		System.out.println(trieCode.charAt(treeIndex));
+		return cleanPayload.charAt(codeIndex);
+	}
+	public boolean isLeaf(Node node)
+	{
+		if ( (node.left == null) && (node.right == null) )
+			return true;
+		else
+			return false;
+	}
 	public String cleanPayload(String payload)
 	{
 		StringBuilder sb = new StringBuilder(payload);
@@ -81,7 +130,7 @@ public class DecompressTest
 
 	public Node buildTrie()
 	{
-		if (getNextChar() == '1')
+		if (getNextCharTrie() == '1')
 		{
 			char data = getAscii();
 			return new Node(data, 0, null, null);
@@ -94,7 +143,7 @@ public class DecompressTest
 		}
 	}
 
-	public char getNextChar()
+	public char getNextCharTrie()
 	{
 		treeIndex++;
 		System.out.println(trieCode.charAt(treeIndex));
