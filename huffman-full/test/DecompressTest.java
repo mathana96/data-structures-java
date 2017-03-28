@@ -52,7 +52,7 @@ public class DecompressTest
 		System.out.println("Dirty :" + dirtyPayload);
 		System.out.println("Clean : " + cleanPayload);
 
-		boolean EOF = false; 
+//		boolean EOF = false; 
 
 		String ident = cleanPayload.substring(0, identifierBits);
 
@@ -146,7 +146,7 @@ public class DecompressTest
 	public char getNextCharTrie()
 	{
 		treeIndex++;
-		System.out.println(trieCode.charAt(treeIndex));
+//		System.out.println(trieCode.charAt(treeIndex));
 		return trieCode.charAt(treeIndex);
 	}
 
