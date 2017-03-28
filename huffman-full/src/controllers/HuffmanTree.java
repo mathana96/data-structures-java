@@ -23,7 +23,7 @@ public class HuffmanTree
 	HashMap<Character, Integer> freqMap = new HashMap<>();
 	HashMap<Character, String> huffmanMap = new HashMap<>();
 
-	//	static final Character special = '\u2020'; //EOF character
+	static final Character special = '#'; //EOF character
 
 	String code = "";
 	String preOrderWrite = "";
@@ -44,7 +44,7 @@ public class HuffmanTree
 		{
 			buildMap(s.charAt(i));
 		}
-		//		buildMap(special); //Add EOF character to the tree
+		buildMap(special); //Add EOF character to the tree
 
 	}
 
@@ -157,7 +157,7 @@ public class HuffmanTree
 		{
 			huffman += huffmanMap.get(s.charAt(i));
 		}
-		return huffman;
+		return huffman += huffmanMap.get(special);
 	}
 
 
@@ -192,7 +192,7 @@ public class HuffmanTree
 
 			//		The left over bits. Need to be padded with zeros
 			String remainingChunk = b.substring(i, b.length());
-			
+
 			remainingChunk = padWithZeros(remainingChunk);
 
 			remainingChunk = "1" + remainingChunk;
@@ -200,9 +200,9 @@ public class HuffmanTree
 			//			{
 			//				chunk += "0"; //Padding 0s
 			//			}
-//			chunk += remainingChunk;
+			//			chunk += remainingChunk;
 			array[k] = Byte.parseByte(remainingChunk, 2);
-		
+
 		} 
 
 		return array;
@@ -231,6 +231,7 @@ public class HuffmanTree
 			preOrderWrite(node.left);
 			preOrderWrite(node.right);
 		}
+
 	}
 
 
@@ -245,7 +246,7 @@ public class HuffmanTree
 
 	public String correctLeadingZeros(String s)
 	{
-		while (s.length() < 6)
+		while (s.length() < 7)
 		{
 			s = "0" + s;
 		}
@@ -257,9 +258,9 @@ public class HuffmanTree
 		int identifier = 0xCADD099;
 		String binIdent = Integer.toBinaryString(identifier);
 
-//		System.out.println("Identifier :" + binIdent);
-//		//		binIdent = "0000" + binIdent;
-//		byte[] headerIdentArray = parseStringToBytes(binIdent);
+		//		System.out.println("Identifier :" + binIdent);
+		//		//		binIdent = "0000" + binIdent;
+		//		byte[] headerIdentArray = parseStringToBytes(binIdent);
 		//		System.out.println(headerIdentArray[0]);
 		//		System.out.println(headerIdentArray[1]);
 		//		System.out.println(headerIdentArray[2]);
@@ -278,8 +279,8 @@ public class HuffmanTree
 
 
 
-//		fout.write(headerIdentArray);
-//		fout.write(headerPreOrderArray);
+		//		fout.write(headerIdentArray);
+		//		fout.write(headerPreOrderArray);
 		fout.write(byteArray);
 
 		System.out.println("Write to file complete");
@@ -287,19 +288,19 @@ public class HuffmanTree
 		fout.close();
 
 	}
-	
+
 	public String getPreOrderWrite()
 	{
 		int treeSize = preOrderWrite.length();
 		String tree = Integer.toBinaryString(treeSize);
-//		System.out.println(preOrderWrite);
-		
+		//		System.out.println(preOrderWrite);
+
 		if (tree.length() < 14)
 			tree = correctLeadingZerosTree(tree);
-		
-		return tree;
+
+		return tree + preOrderWrite;
 	}
-	
+
 	public String correctLeadingZerosTree(String s)
 	{
 		while (s.length() < 14)

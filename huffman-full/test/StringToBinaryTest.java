@@ -28,7 +28,7 @@ public class StringToBinaryTest
 		System.out.println(s);
 	}
 
-	@Test
+//	@Test
 	public void test3()
 	{
 		int identifier = 0xCADD099;
@@ -84,6 +84,20 @@ public class StringToBinaryTest
 		
 	}
 	
+//	@Test
+	public void test6()
+	{
+		Integer ascii = (int) 'a';
+		String asciiBinary = Integer.toBinaryString(ascii);
+		System.out.println(asciiBinary);
+	}
+	
+	@Test
+	public void test7()
+	{
+		String teString = "1010101";
+		System.out.println(teString.charAt(1));
+	}
 	
 	public String padWithZeros(String s)
 	{

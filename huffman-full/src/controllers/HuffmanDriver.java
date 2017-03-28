@@ -29,10 +29,11 @@ public class HuffmanDriver
 		
 		huffmanTree.preOrderWrite(node);
 
-		System.out.println("Prerder : " + huffmanTree.preOrderWrite.length());
+//		System.out.println("Prerder : " + huffmanTree.preOrderWrite.length());
+		System.out.println(huffmanTree.preOrderWrite.length());
 		
 		
-		String longdata = huffmanTree.generateHeaderIdentifier() + huffmanTree.getPreOrderWrite();// + compressed;
+		String longdata = huffmanTree.generateHeaderIdentifier() + huffmanTree.getPreOrderWrite() + compressed;
 		
 		byte[] longdataarray = huffmanTree.parseStringToBytes(longdata);
 		

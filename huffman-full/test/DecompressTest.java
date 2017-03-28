@@ -11,13 +11,23 @@ import java.nio.file.Paths;
 
 import org.junit.Test;
 
+import models.Node;
+
 public class DecompressTest
 {
 
-	private static final String identifier = "CADD099";
-	Integer valIdent = Integer.parseInt(identifier, 16);
-	
+	private static final int identifier = 0xCADD099;
+	private static final int identifierBits = 28;
+	private static final int trieLengthBits = 14;
+
+	//	Integer valIdent = Integer.parseInt(identifier, 16);
+
 	String dirtyPayload = "";
+	String cleanPayload = "";
+	String textOutput = "";
+	String trieCode = "";
+	int treeIndex = -1;
+	//	int trieLength = 0;
 
 	@Test
 	public void test1() throws IOException
@@ -25,125 +35,99 @@ public class DecompressTest
 
 		Path path = Paths.get("././data/compressed.dat");
 		byte[] data = Files.readAllBytes(path);
-		
-	
+
+
 		for (int i=0; i<data.length; i++)
 		{
 			Integer integerForm = Byte.toUnsignedInt(data[i]);
 			String stringForm = Integer.toBinaryString(integerForm);
 			dirtyPayload += stringForm;
-			
+
 		}
-		
-		
-		System.out.println(dirtyPayload);
-		System.out.println(cleanPayload(dirtyPayload));
+
+		cleanPayload = cleanPayload(dirtyPayload);
+
+		System.out.println("Dirty :" + dirtyPayload);
+		System.out.println("Clean : " + cleanPayload);
+
+		boolean EOF = false; 
+
+		String ident = cleanPayload.substring(0, identifierBits);
+
+		if (checkIdent(ident))
+		{
+			int trieLength = getTrieLength(cleanPayload.substring(identifierBits, identifierBits + trieLengthBits));
+			int trieStart = identifierBits + trieLengthBits;
+			System.out.println("Triestart index: " + trieStart + " trieend: " + (trieStart+trieLength));
+			trieCode = cleanPayload.substring(trieStart, trieStart + trieLength);
+			Node root = buildTrie();
+			System.out.println("freq" + root.freq);
+			//			System.out.println(trieLength);
+		}
+
 	}
-	
+
 	public String cleanPayload(String payload)
 	{
 		StringBuilder sb = new StringBuilder(payload);
-		
+
 		for (int i=0; (i*7)<payload.length(); i++) 
 		{
 			sb.deleteCharAt((i * 7)-i);
 		}
-		
+
 		return sb.toString();
 	}
-	
-//	public String cleanPayload(String dirtyPayload)
-//	{
-//		StringBuilder sb = new StringBuilder();
-//		
-//		int i = 1;
-//		int j = 0;
-//		while ((dirtyPayload.length() - i) < 7)
-//		{
-//			j = i + 7;
-//			String sub = dirtyPayload.substring(i, j);
-//			sb.append(sub);
-//			i = j + 2;
-//		}
-//		
-//		return sb.toString();
-//		
-//	}
-//	public boolean confirmHeader()
-//	{
-//		
-//	}
-	//	@Test
-	//	public void test() throws IOException
-	//	{
-	//		String output = "";
-//			File file = new File("././data/compressed.dat");
-	//		FileInputStream fin = new FileInputStream(file);
-	//
-	//		byte[] identarray = new byte[4];
-	//
-	//		fin.read(identarray);
-	//
-	//		if (confirmIdentifier(identarray))
-	//		{
-	//			int partOfIdent2 = Byte.toUnsignedInt((byte) fin.read());
-	//			int partOfIdent = Byte.toUnsignedInt((byte) fin.read());
-	//			System.out.println(partOfIdent);
-	//			String string = Integer.toBinaryString(partOfIdent);
-	//			if (string.length() < 7)
-	//			{
-	//				string = correctLeadingZeros(string);
-	//			}
-	//			Integer isValidIdent = Integer.parseInt(string, 2);
-	//
-	//			System.out.println(isValidIdent);
-	//
-	//			//			while (fin.read() != -1)
-	//			//			{
-	//			//
-	//			//			}
-	//		}
-	//
-	//	}
-	//
-	//	public boolean confirmIdentifier(byte[] ident)
-	//	{		
-	//		String identifier = "";
-	//
-	//		byte[] identarray = ident;
-	//
-	//		//		while (fin.read() != -1)
-	//		//		{
-	//
-	//		for (int i=0; i<4; i++)
-	//		{
-	//			int partOfIdent = Byte.toUnsignedInt(identarray[i]);
-	//			String string = Integer.toBinaryString(partOfIdent);
-	//			if (string.length() < 7)
-	//			{
-	//				string = correctLeadingZeros(string);
-	//			}
-	//			identifier += string;
-	//			//				identifier += identarray[i];
-	//			//				System.out.println(identifier);
-	//
-	//		}
-	//
-	//		Integer isValidIdent = Integer.parseInt(identifier, 2);
-	//
-	//		if (isValidIdent.equals(valIdent))
-	//			return true;
-	//		else
-	//			return false;
-	//
-	//	}
-	//	public String correctLeadingZeros(String s)
-	//	{
-	//		while (s.length() < 7)
-	//		{
-	//			s = "0" + s;
-	//		}
-	//		return s;
-	//	}
+
+	public Node buildTrie()
+	{
+		if (getNextChar() == '1')
+		{
+			char data = getAscii();
+			return new Node(data, 0, null, null);
+		}
+		else
+		{
+			Node x = buildTrie();
+			Node y = buildTrie();
+			return new Node('\0', 0, x, y);
+		}
+	}
+
+	public char getNextChar()
+	{
+		treeIndex++;
+		System.out.println(trieCode.charAt(treeIndex));
+		return trieCode.charAt(treeIndex);
+	}
+
+	public char getAscii()
+	{
+		treeIndex++;
+		String asciiStr = trieCode.substring(treeIndex, treeIndex + 7);
+		int asciiInt = Integer.parseInt(asciiStr, 2);
+		char ascii = (char) asciiInt;
+		treeIndex = treeIndex + 6; //has to be 6 to counter the increment at getNextCHar()
+		return ascii;
+	}
+
+	public boolean checkIdent(String ident)
+	{
+		String identValid = Integer.toBinaryString(identifier);
+
+		//		System.out.println("In text: " + ident);
+		//		System.out.println("real: " + identValid);
+
+		if (ident.matches(identValid))
+			return true;
+
+		return false;
+	}
+
+	public int getTrieLength(String s)
+	{
+		return Integer.parseInt(s, 2);
+	}
+
 
 }
