@@ -6,100 +6,181 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import org.junit.Test;
+
+import models.Node;
 
 public class HuffmanTreeDecompress
 {
+	private static final int identifier = 0xCADD099;
+	private static final int identifierBits = 28;
+	private static final int trieLengthBits = 14;
 
-	private static final String identifier = "CADD099";
-	Integer valIdent = Integer.parseInt(identifier, 16);
+	//	Integer valIdent = Integer.parseInt(identifier, 16);
 
-	public HuffmanTreeDecompress(){}
+	String dirtyPayload = "";
+	String cleanPayload = "";
+	String textOutput = "";
+	String trieCode = "";
+	int treeIndex = -1;
+	int codeIndex = -1;
+	boolean EOF = false;
+	//	int trieLength = 0;
 
-
-	public void readBytesFromFile() throws IOException
+	public HuffmanTreeDecompress(){ }
+	
+	public String decompress(byte[] d) throws IOException
 	{
-		String output = "";
-		File file = new File("././data/compressed.dat");
-		FileInputStream fin = new FileInputStream(file);
 
-		byte[] identarray = new byte[4];
 
-		fin.read(identarray);
 
-		if (confirmIdentifier(identarray))
+		byte[] data = d;
+		
+		for (int i=0; i<data.length; i++)
 		{
-			int partOfIdent = Byte.toUnsignedInt((byte) fin.read());
-			String string = Integer.toBinaryString(partOfIdent);
-			if (string.length() < 7)
-			{
-				string = correctLeadingZeros(string);
-			}
-			Integer isValidIdent = Integer.parseInt(string, 2);
+			Integer integerForm = Byte.toUnsignedInt(data[i]);
+			String stringForm = Integer.toBinaryString(integerForm);
+			dirtyPayload += stringForm;
 
-			System.out.println(isValidIdent);
-			
-//			while (fin.read() != -1)
-//			{
-//
-//			}
 		}
 
+		cleanPayload = cleanPayload(dirtyPayload);
 
+//		System.out.println("Dirty :" + dirtyPayload);
+//		System.out.println("Clean : " + cleanPayload);
 
-		//		System.out.println(Integer.toString(in));
+		//		boolean EOF = false; 
 
-		//First 4 bits are identifier, working!
+		String ident = cleanPayload.substring(0, identifierBits);
 
+		if (checkIdent(ident))
+		{
+			int trieLength = getTrieLength(cleanPayload.substring(identifierBits, identifierBits + trieLengthBits));
+			int trieStart = identifierBits + trieLengthBits;
+//			System.out.println("Triestart index: " + trieStart + " trieend: " + (trieStart+trieLength));
+			trieCode = cleanPayload.substring(trieStart, trieStart + trieLength);
+			Node root = buildTrie();
 
-		fin.close();
+			codeIndex += trieStart + trieLength;
+
+			while (!EOF)
+			{
+				decoderMF(root);
+			}
+			
+			
+			//			System.out.println("freq" + root.freq);
+			//			System.out.println(trieLength);
+		}
+		return textOutput;
+
 	}
 
-	public boolean confirmIdentifier(byte[] ident)
-	{		
-		String identifier = "";
 
-		byte[] identarray = ident;
+	public void decoderMF(Node node)
+	{
 
-		//		while (fin.read() != -1)
-		//		{
-
-		for (int i=0; i<4; i++)
+		if (node.data != '#')
 		{
-			int partOfIdent = Byte.toUnsignedInt(identarray[i]);
-			String string = Integer.toBinaryString(partOfIdent);
-			if (string.length() < 7)
+			if (isLeaf(node))
 			{
-				string = correctLeadingZeros(string);
-			}
-			identifier += string;
-			//				identifier += identarray[i];
-			//				System.out.println(identifier);
 
+				textOutput += node.data;
+//				System.out.println(node.data);
+
+			} else
+			{
+				if (getNextCharCode() == '0')
+					decoderMF(node.left);
+				else
+					decoderMF(node.right);
+			} 
+		}
+		else
+		{
+			EOF = true;
 		}
 
-		Integer isValidIdent = Integer.parseInt(identifier, 2);
+	}
 
-		if (isValidIdent.equals(valIdent))
+	public char getNextCharCode()
+	{
+		codeIndex++;
+		//		System.out.println(trieCode.charAt(treeIndex));
+		return cleanPayload.charAt(codeIndex);
+	}
+	public boolean isLeaf(Node node)
+	{
+		if ( (node.left == null) && (node.right == null) )
 			return true;
 		else
 			return false;
-
 	}
-
-	public String correctLeadingZeros(String s)
+	public String cleanPayload(String payload)
 	{
-		while (s.length() < 7)
+		StringBuilder sb = new StringBuilder(payload);
+
+		for (int i=0; (i*7)<payload.length(); i++) 
 		{
-			s = "0" + s;
+			sb.deleteCharAt((i * 7)-i);
 		}
-		return s;
+
+		return sb.toString();
 	}
 
-	public void writeDecompressedFile() throws FileNotFoundException
+	public Node buildTrie()
 	{
-		File file = new File("././data/decompressed.txt");
-		FileOutputStream fout = new FileOutputStream(file);
-
-		//		fout.write();
+		if (getNextCharTrie() == '1')
+		{
+			char data = getAscii();
+			return new Node(data, 0, null, null);
+		}
+		else
+		{
+			Node x = buildTrie();
+			Node y = buildTrie();
+			return new Node('\0', 0, x, y);
+		}
 	}
+
+	public char getNextCharTrie()
+	{
+		treeIndex++;
+		//		System.out.println(trieCode.charAt(treeIndex));
+		return trieCode.charAt(treeIndex);
+	}
+
+	public char getAscii()
+	{
+		treeIndex++;
+		String asciiStr = trieCode.substring(treeIndex, treeIndex + 7);
+		int asciiInt = Integer.parseInt(asciiStr, 2);
+		char ascii = (char) asciiInt;
+		treeIndex = treeIndex + 6; //has to be 6 to counter the increment at getNextCHar()
+		return ascii;
+	}
+
+	public boolean checkIdent(String ident)
+	{
+		String identValid = Integer.toBinaryString(identifier);
+
+		//		System.out.println("In text: " + ident);
+		//		System.out.println("real: " + identValid);
+
+		if (ident.matches(identValid))
+			return true;
+
+		return false;
+	}
+
+	public int getTrieLength(String s)
+	{
+		return Integer.parseInt(s, 2);
+	}
+
+
 }

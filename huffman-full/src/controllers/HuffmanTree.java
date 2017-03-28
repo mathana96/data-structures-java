@@ -283,7 +283,7 @@ public class HuffmanTree
 		//		fout.write(headerPreOrderArray);
 		fout.write(byteArray);
 
-		System.out.println("Write to file complete");
+		System.out.println("Write to file complete (compressed)");
 		//		fout.write(array);
 		fout.close();
 

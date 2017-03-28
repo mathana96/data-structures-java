@@ -6,6 +6,10 @@
  */
 package controllers;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import models.Node;
 import utils.ReadFromFile;
 import utils.WriteToFile;
@@ -13,14 +17,17 @@ import utils.WriteToFile;
 public class HuffmanDriver
 {
 
-	private final static String path = "././data/textdata.txt";
+	private final static String pathToCompress = "././data/textdata.txt";
+	private final static String pathToDecompress = "././data/compressed.dat";
 	
 	public static void main(String[] args) throws Exception
 	{
-		ReadFromFile reader = new ReadFromFile(path);
+		ReadFromFile reader = new ReadFromFile(pathToCompress);
 		String toCompress = reader.getFileContent();
 		
 		HuffmanTree huffmanTree = new HuffmanTree();
+		HuffmanTreeDecompress decompress = new HuffmanTreeDecompress();
+		
 		huffmanTree.buildMap(toCompress);
 		Node node = huffmanTree.buildTrie();
 		System.out.println("Char" + "\t" + "Freq" + "\t" + "Huffman");
@@ -30,27 +37,24 @@ public class HuffmanDriver
 		huffmanTree.preOrderWrite(node);
 
 //		System.out.println("Prerder : " + huffmanTree.preOrderWrite.length());
-		System.out.println(huffmanTree.preOrderWrite.length());
+//		System.out.println(huffmanTree.preOrderWrite.length());
 		
 		
 		String longdata = huffmanTree.generateHeaderIdentifier() + huffmanTree.getPreOrderWrite() + compressed;
 		
 		byte[] longdataarray = huffmanTree.parseStringToBytes(longdata);
 		
-		huffmanTree.writeBytesToFile(longdataarray);
-//		byte[] data = huffmanTree.parseStringToBytes(compressed);
-//		
-//		
-//		byte[] ident = huffmanTree.generateHeaderIdentifier();
-//		byte[] preOrder = huffmanTree.generateHeaderPreOrder();
-//		
-//		huffmanTree.writeBytesToFile(ident, preOrder, data);
+		huffmanTree.writeBytesToFile(longdataarray); //compress
 		
+//		-------------------------------------------------------------
+//		Decompress
+		Path path = Paths.get(pathToDecompress);
+		byte[] data = Files.readAllBytes(path);
+		
+		String decompressed = decompress.decompress(data);
+		
+		WriteToFile writer = new WriteToFile(decompressed);
 
-//		huffmanTree.readBytesFromFile();
-		
-		
-//		WriteToFile writer = new WriteToFile(compressed);
 	}
 
 }

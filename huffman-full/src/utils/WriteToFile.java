@@ -22,6 +22,6 @@ public class WriteToFile
 		 writer.write(huffman); 
      writer.flush();
      writer.close();
-     System.out.println("Write to file complete");
+     System.out.println("Write to file complete (decompressed)");
 	}
 }
