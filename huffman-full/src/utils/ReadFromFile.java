@@ -20,7 +20,7 @@ public class ReadFromFile
 	
 	public ReadFromFile(String path) throws Exception
 	{
-		List<String> lines = Files.readAllLines(Paths.get(path),StandardCharsets.UTF_8);
+		List<String> lines = Files.readAllLines(Paths.get(path),StandardCharsets.US_ASCII);
 		sb = new StringBuilder(1024); 
 		for (String line : lines) 
 		{ 
