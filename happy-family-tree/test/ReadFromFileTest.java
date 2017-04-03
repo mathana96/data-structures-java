@@ -13,7 +13,7 @@ public class ReadFromFileTest
 	@Test
 	public void testFileReader() throws Exception
 	{
-		String path = "././testdata/testInput.txt";
+		String path = "././test/test.txt";
 		
 		Parser parser = new Parser();
 		ArrayList<Person> people = parser.parsePersonData(path);

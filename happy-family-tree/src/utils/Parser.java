@@ -4,6 +4,7 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.stream.Stream;
 
 import edu.princeton.cs.introcs.In;
@@ -23,20 +24,23 @@ public class Parser
 	public ArrayList<Person> parsePersonData(String path) throws Exception
 	{
 
-		Stream<String> stream = Files.lines(Paths.get(path));
+//		Stream<String> stream = Files.lines(Paths.get(path));
 		
+		File file = new File(path);
+		Scanner inUsers = new Scanner(file);
 //
 //			
 //		File usersFile = new File(path);
 //		In inUsers = new In(usersFile);
 		String delim = "\\s"; //whitespace
 
-		stream.forEach(
-		while (!inUsers.isEmpty())
+//		stream.forEach(
+		while (inUsers.hasNextLine())
 		{
-			String personDetails = inUsers.readLine();
+			String personDetails = inUsers.nextLine();
 			String[] personTokens = personDetails.split(delim);
 
+//			System.out.println(personTokens[0]);
 			if (personTokens.length == 5) 
 			{
 				String personName = personTokens[0];
