@@ -2,20 +2,29 @@ package models;
 
 import static com.google.common.base.MoreObjects.toStringHelper;
 
+import java.util.ArrayList;
+
 import com.google.common.base.Objects;
 
 public class Person
 {
 
-	String name;
-	char gender;
-	int DOB;
+	public String name;
+	public char gender;
+	public int DOB;
+	public String mother;
+	public String father;
 	
-	public Person(String name, char gender, int DOB)
+	ArrayList<Relation> relations = new ArrayList<>();
+	
+	public Person(String name, char gender, int DOB, String mother, String father)
 	{
 		this.name = name;
 		this.gender = gender;
 		this.DOB = DOB;
+		this.mother = mother;
+		this.father = father;
+		
 	}
 	
 	@Override
