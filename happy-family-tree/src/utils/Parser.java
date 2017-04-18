@@ -46,7 +46,7 @@ public class Parser
 				{
 					if (!people.containsKey(mother))
 					{
-						mom = new Person(mother, 'M', 0, null, null);
+						mom = new Person(mother, 'F', 0, null, null);
 						people.put(mother, mom);
 					}
 					else
@@ -60,7 +60,7 @@ public class Parser
 				{
 					if (!people.containsKey(father))
 					{
-						dad = new Person(father, 'F', 0, null, null);
+						dad = new Person(father, 'M', 0, null, null);
 						people.put(father, dad);
 					}
 					else

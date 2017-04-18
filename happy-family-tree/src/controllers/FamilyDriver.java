@@ -108,7 +108,7 @@ public class FamilyDriver
 						break;
 		
 					case "uncles":
-						getFather(victim);
+						getUncles(victim);
 						break;
 		
 					case "aunties":
@@ -241,11 +241,13 @@ public class FamilyDriver
 
 						for (Person unclaunt: uncleAndAunts)
 						{
-							List<Person> children = unclaunt.children;
-							for (Person child: children)
+							if (!unclaunt.equals(victim.father))
 							{
-								if (!child.name.equals(v))
+								List<Person> children = unclaunt.children;
+								for (Person child: children)
+								{
 									System.out.println(child.name + " paternal cousin of " + v + ". Born on " + child.DOB);
+								}
 							}
 						}			
 					}
@@ -274,7 +276,7 @@ public class FamilyDriver
 				}
 			}	
 						
-			else if (victim.mother != null) 
+			if (victim.mother != null) 
 			{
 				String motherName = victim.mother.name;
 				Person mother = people.get(motherName);
@@ -288,14 +290,20 @@ public class FamilyDriver
 						Person grandfather = people.get(grandFatherName);
 						List<Person> uncleAndAunts = grandfather.children;
 
+//						System.out.println("Grandpa " + grandFatherName);
+//						System.out.println(uncleAndAunts);
 						for (Person unclaunt: uncleAndAunts)
 						{
-							List<Person> children = unclaunt.children;
-							for (Person child: children)
+						
+							if (!unclaunt.equals(victim.mother))
 							{
-								if (!child.name.equals(v))
+								List<Person> children = unclaunt.children;
+								for (Person child : children)
+								{
 									System.out.println(child.name + " maternal cousin of " + v + ". Born on " + child.DOB);
-							}
+								} 
+							} 
+
 						}			
 					}
 					
@@ -326,6 +334,200 @@ public class FamilyDriver
 		else
 		{
 			System.out.println("Doesn't have cousins, the sad soul");
+		}
+	}
+	
+	public void getUncles(String v)
+	{
+		Person victim = people.get(v);
+
+		if ( (victim.father != null) || (victim.mother != null) )
+		{
+
+			if (victim.father != null) 
+			{
+				String fatherName = victim.father.name;
+				Person father = people.get(fatherName);
+
+				if ( (father.father != null) || (father.mother != null) )
+				{
+
+					if (father.father != null)
+					{
+						String grandFatherName = father.father.name;
+						Person grandfather = people.get(grandFatherName);
+						List<Person> uncleAndAunts = grandfather.children;
+
+						for (Person unclaunt: uncleAndAunts)
+						{
+							if ( (unclaunt.gender == 'M') && (!unclaunt.name.equals(victim.father.name)) )
+								System.out.println(unclaunt.name + " paternal uncle of " + v + ". Born on " + unclaunt.DOB);
+						}			
+					}
+					
+					else if (father.mother != null)
+					{
+						String grandMotherName = father.mother.name;
+						Person grandmother = people.get(grandMotherName);
+						List<Person> uncleAndAunts = grandmother.children;
+
+						for (Person unclaunt: uncleAndAunts)
+						{
+							if ( (unclaunt.gender == 'M') && (!unclaunt.name.equals(victim.father.name)) )
+								System.out.println(unclaunt.name + " paternal uncle of " + v + ". Born on " + unclaunt.DOB);
+						
+						}			
+					}
+									
+				}
+				else
+				{
+					System.out.println("No paternal uncles. Kingdom is yours");	
+				}
+			}	
+			else if (victim.mother != null) 
+			{
+				String motherName = victim.mother.name;
+				Person mother = people.get(motherName);
+
+				if ( (mother.father != null) || (mother.mother != null) )
+				{
+
+					if (mother.father != null)
+					{
+						String grandFatherName = mother.father.name;
+						Person grandfather = people.get(grandFatherName);
+						List<Person> uncleAndAunts = grandfather.children;
+
+						for (Person unclaunt: uncleAndAunts)
+						{
+							if ( (unclaunt.gender == 'M') && (!unclaunt.name.equals(victim.mother.name)) )
+								System.out.println(unclaunt.name + " maternal uncle of " + v + ". Born on " + unclaunt.DOB);
+						
+						}			
+					}
+					
+					else if (mother.mother != null)
+					{
+						String grandMotherName = mother.mother.name;
+						Person grandmother = people.get(grandMotherName);
+						List<Person> uncleAndAunts = grandmother.children;
+
+						for (Person unclaunt: uncleAndAunts)
+						{
+							if ( (unclaunt.gender == 'M') && (!unclaunt.name.equals(victim.father.name)) )
+								System.out.println(unclaunt.name + " maternal uncle of " + v + ". Born on " + unclaunt.DOB);
+						
+						}			
+					}
+									
+				}
+				else
+				{
+					System.out.println("No maternal uncles. Kingdom is yours!");	
+				}
+			}	
+		}
+		else
+		{
+			System.out.println("Doesn't have uncles or aunts, what on earth?");
+		}
+	}
+	
+	public void getAunties(String v)
+	{
+		Person victim = people.get(v);
+
+		if ( (victim.father != null) || (victim.mother != null) )
+		{
+
+			if (victim.father != null) 
+			{
+				String fatherName = victim.father.name;
+				Person father = people.get(fatherName);
+
+				if ( (father.father != null) || (father.mother != null) )
+				{
+
+					if (father.father != null)
+					{
+						String grandFatherName = father.father.name;
+						Person grandfather = people.get(grandFatherName);
+						List<Person> uncleAndAunts = grandfather.children;
+
+						for (Person unclaunt: uncleAndAunts)
+						{
+							if ( (unclaunt.gender == 'M') && (!unclaunt.name.equals(victim.father.name)) )
+								System.out.println(unclaunt.name + " paternal uncle of " + v + ". Born on " + unclaunt.DOB);
+						}			
+					}
+					
+					else if (father.mother != null)
+					{
+						String grandMotherName = father.mother.name;
+						Person grandmother = people.get(grandMotherName);
+						List<Person> uncleAndAunts = grandmother.children;
+
+						for (Person unclaunt: uncleAndAunts)
+						{
+							if ( (unclaunt.gender == 'M') && (!unclaunt.name.equals(victim.father.name)) )
+								System.out.println(unclaunt.name + " paternal uncle of " + v + ". Born on " + unclaunt.DOB);
+						
+						}			
+					}
+									
+				}
+				else
+				{
+					System.out.println("No paternal uncles. Kingdom is yours");	
+				}
+			}	
+			else if (victim.mother != null) 
+			{
+				String motherName = victim.mother.name;
+				Person mother = people.get(motherName);
+
+				if ( (mother.father != null) || (mother.mother != null) )
+				{
+
+					if (mother.father != null)
+					{
+						String grandFatherName = mother.father.name;
+						Person grandfather = people.get(grandFatherName);
+						List<Person> uncleAndAunts = grandfather.children;
+
+						for (Person unclaunt: uncleAndAunts)
+						{
+							if ( (unclaunt.gender == 'M') && (!unclaunt.name.equals(victim.mother.name)) )
+								System.out.println(unclaunt.name + " maternal uncle of " + v + ". Born on " + unclaunt.DOB);
+						
+						}			
+					}
+					
+					else if (mother.mother != null)
+					{
+						String grandMotherName = mother.mother.name;
+						Person grandmother = people.get(grandMotherName);
+						List<Person> uncleAndAunts = grandmother.children;
+
+						for (Person unclaunt: uncleAndAunts)
+						{
+							if ( (unclaunt.gender == 'M') && (!unclaunt.name.equals(victim.father.name)) )
+								System.out.println(unclaunt.name + " maternal uncle of " + v + ". Born on " + unclaunt.DOB);
+						
+						}			
+					}
+									
+				}
+				else
+				{
+					System.out.println("No maternal uncles. Kingdom is yours!");	
+				}
+			}	
+		}
+		else
+		{
+			System.out.println("Doesn't have uncles or aunts, what on earth?");
 		}
 	}
 }

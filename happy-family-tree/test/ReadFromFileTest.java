@@ -10,14 +10,20 @@ import utils.Parser;
 
 public class ReadFromFileTest
 {
+	String path = "././test/test.txt";
+	Map<String, Person> people;
+	
+	public ReadFromFileTest() throws Exception
+	{
+		Parser parser = new Parser();
+		people = parser.parsePersonData(path);
+	}
 
+	
 	@Test
 	public void testFileReader() throws Exception
 	{
-		String path = "././test/test.txt";
-		
-		Parser parser = new Parser();
-		Map<String, Person> people = parser.parsePersonData(path);
+
 		
 		Person person1 = people.get("Colby");		
 		assertEquals("Colby", person1.name);
@@ -57,7 +63,15 @@ public class ReadFromFileTest
 		Person person4 = people.get("Joyce");
 		System.out.println(person4.children.size());
 		assertEquals(3, person4.children.size());
+	
 
+	}
+	
+	@Test
+	public void test2()
+	{
+		Person person5 = people.get("Donte");
+		System.out.println(person5.father.name);
 	}
 
 }
