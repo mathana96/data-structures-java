@@ -60,7 +60,7 @@ public class FamilyDriver
 			System.out.println("\n\n***************Spell Guide (Note: Grammar is still evolving)***************");
 
 			System.out.println("\nThe 'who' spell. Chant 'who' followed by one these words.");
-			System.out.println("(mother, father, siblings, cousins, spouse, grandparents, uncles, aunties");
+			System.out.println("(mother, father, siblings, cousins, spouse, grandparents, uncles, aunties, children)");
 
 			
 			String answer = input.nextLine();
@@ -121,6 +121,10 @@ public class FamilyDriver
 		
 					case "grandparents":
 						getGrandparents(victim);
+						break;
+						
+					case "children":
+						getChildren(victim);
 						break;
 
 					default:
@@ -637,6 +641,18 @@ public class FamilyDriver
 		else
 		{
 			System.out.println("Doesn't have uncles or aunts, what on earth?");
+		}
+	}
+	
+	public void getChildren(String v)
+	{
+		Person victim = people.get(v);
+		if (!victim.children.isEmpty())
+		{
+			for (Person child: victim.children)
+			{
+				System.out.println(child.name + " child of " + v + ". Born on " + child.DOB);
+			}
 		}
 	}
 }
