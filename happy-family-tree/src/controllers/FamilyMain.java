@@ -39,7 +39,7 @@ public class FamilyMain
 
 			try
 			{
-				System.out.println("\n======TREE Options======\n");
+				System.out.println("\n======Exclusiveland Scope Options======\n");
 
 				System.out.println("This system is highly volatile. Any silly input will result in ......\nPick one you fancy below\n");
 				System.out.println("1) People of Exclusiveland. BEWARE o' fool that this will list all " + people.size() + " names!");
@@ -67,7 +67,7 @@ public class FamilyMain
 	
 	public void menuRun() throws Exception
 	{
-		System.out.println("\nWelcome to the Family Tree of the people of Exclusiveland where every name is unique!" + "\nPopulation count: " + people.size() 
+		System.out.println("\nWelcome to the Scope of the people of Exclusiveland where every name is unique!" + "\nPopulation count: " + people.size() 
 				+ "\nRead ALL instructions carefully as you proceed you peasant! Press enter to continue");
 		input.hasNextLine();
 		
@@ -86,7 +86,7 @@ public class FamilyMain
 				break;
 				
 			case 3:
-				System.out.println("hi");
+				driver.nosey();
 				break;
 				
 			case 4:
