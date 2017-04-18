@@ -73,6 +73,9 @@ public class Parser
 				if (people.containsKey(personName))
 				{
 					person = people.get(personName);
+					person.DOB = personDOB;
+					person.gender = personGender;
+					
 				}
 				else
 				{
