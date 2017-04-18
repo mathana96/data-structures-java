@@ -52,6 +52,9 @@ public class FamilyDriver
 		if (people.containsKey(victim))
 		{
 
+			System.out.println("Here are some personal details of " + victim + " you slimy scum!");
+			Person person = people.get(victim);
+			System.out.println(victim + " born on " + person.DOB + ". Classified as '" + person.gender + "'");
 			System.out.println("\nExcellent... Now read the following carefully as these are precise spells which only work if you say them right!");
 
 			System.out.println("\n\n***************Spell Guide (Note: Grammar is still evolving)***************");
@@ -112,7 +115,7 @@ public class FamilyDriver
 						break;
 		
 					case "aunties":
-						getFather(victim);
+						getAunties(victim);
 						break;
 		
 					case "grandparents":
@@ -457,8 +460,8 @@ public class FamilyDriver
 
 						for (Person unclaunt: uncleAndAunts)
 						{
-							if ( (unclaunt.gender == 'M') && (!unclaunt.name.equals(victim.father.name)) )
-								System.out.println(unclaunt.name + " paternal uncle of " + v + ". Born on " + unclaunt.DOB);
+							if ( (unclaunt.gender == 'F') && (!unclaunt.name.equals(victim.father.name)) )
+								System.out.println(unclaunt.name + " paternal aunty of " + v + ". Born on " + unclaunt.DOB);
 						}			
 					}
 					
@@ -471,7 +474,7 @@ public class FamilyDriver
 						for (Person unclaunt: uncleAndAunts)
 						{
 							if ( (unclaunt.gender == 'M') && (!unclaunt.name.equals(victim.father.name)) )
-								System.out.println(unclaunt.name + " paternal uncle of " + v + ". Born on " + unclaunt.DOB);
+								System.out.println(unclaunt.name + " paternal aunty of " + v + ". Born on " + unclaunt.DOB);
 						
 						}			
 					}
@@ -479,7 +482,7 @@ public class FamilyDriver
 				}
 				else
 				{
-					System.out.println("No paternal uncles. Kingdom is yours");	
+					System.out.println("No paternal aunties. Kingdom is yours");	
 				}
 			}	
 			else if (victim.mother != null) 
@@ -498,8 +501,8 @@ public class FamilyDriver
 
 						for (Person unclaunt: uncleAndAunts)
 						{
-							if ( (unclaunt.gender == 'M') && (!unclaunt.name.equals(victim.mother.name)) )
-								System.out.println(unclaunt.name + " maternal uncle of " + v + ". Born on " + unclaunt.DOB);
+							if ( (unclaunt.gender == 'F') && (!unclaunt.name.equals(victim.mother.name)) )
+								System.out.println(unclaunt.name + " maternal aunty of " + v + ". Born on " + unclaunt.DOB);
 						
 						}			
 					}
@@ -513,7 +516,7 @@ public class FamilyDriver
 						for (Person unclaunt: uncleAndAunts)
 						{
 							if ( (unclaunt.gender == 'M') && (!unclaunt.name.equals(victim.father.name)) )
-								System.out.println(unclaunt.name + " maternal uncle of " + v + ". Born on " + unclaunt.DOB);
+								System.out.println(unclaunt.name + " maternal aunty of " + v + ". Born on " + unclaunt.DOB);
 						
 						}			
 					}
@@ -521,7 +524,7 @@ public class FamilyDriver
 				}
 				else
 				{
-					System.out.println("No maternal uncles. Kingdom is yours!");	
+					System.out.println("No maternal aunties. Kingdom is yours!");	
 				}
 			}	
 		}
