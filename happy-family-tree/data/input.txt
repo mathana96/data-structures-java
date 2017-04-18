@@ -674,7 +674,7 @@ Brodie M 1863 ? ?
 Maryam F 1864 ? Travon
 Garrison M 1879 ? Ben
 Emilia F 1901 Keila ?
-Paulina F 1919 Jimena ?
+Paulina F 1919 Jimena Donte
 Lesley F 1925 ? ?
 Aileen F 1881 ? ?
 Brady M 1917 ? Justin
@@ -1000,7 +1000,7 @@ Ross M 1837 Aurora Pedro
 Josiah M 1856 ? ?
 Angelique F 1910 Adeline ?
 Tyler M 1820 ? ?
-Gunnar M 1914 Sade Malachi
+Gunnar M 1914 Sade ?
 Justyn M 1919 Estefania Brayden
 Fernando M 1893 ? ?
 Salma F 1866 Amy ?

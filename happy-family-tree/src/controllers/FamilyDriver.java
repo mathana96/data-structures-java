@@ -104,7 +104,7 @@ public class FamilyDriver
 						break;
 		
 					case "cousins":
-						getFather(victim);
+						getCousins(victim);
 						break;
 		
 					case "uncles":
@@ -215,6 +215,117 @@ public class FamilyDriver
 		else
 		{
 			System.out.println("Doesn't have siblings, the blessed soul");
+		}
+	}
+	
+	public void getCousins(String v)
+	{
+		Person victim = people.get(v);
+
+		if ( (victim.father != null) || (victim.mother != null) )
+		{
+
+			if (victim.father != null) 
+			{
+				String fatherName = victim.father.name;
+				Person father = people.get(fatherName);
+
+				if ( (father.father != null) || (father.mother != null) )
+				{
+
+					if (father.father != null)
+					{
+						String grandFatherName = father.father.name;
+						Person grandfather = people.get(grandFatherName);
+						List<Person> uncleAndAunts = grandfather.children;
+
+						for (Person unclaunt: uncleAndAunts)
+						{
+							List<Person> children = unclaunt.children;
+							for (Person child: children)
+							{
+								if (!child.name.equals(v))
+									System.out.println(child.name + " paternal cousin of " + v + ". Born on " + child.DOB);
+							}
+						}			
+					}
+					
+					else if (father.mother != null)
+					{
+						String grandMotherName = father.mother.name;
+						Person grandmother = people.get(grandMotherName);
+						List<Person> uncleAndAunts = grandmother.children;
+
+						for (Person unclaunt: uncleAndAunts)
+						{
+							List<Person> children = unclaunt.children;
+							for (Person child: children)
+							{
+								if (!child.name.equals(v))
+									System.out.println(child.name + " paternal cousin of " + v + ". Born on " + child.DOB);
+							}
+						}			
+					}
+									
+				}
+				else
+				{
+					System.out.println("No paternal cousins. The lineage is dead");	
+				}
+			}	
+						
+			else if (victim.mother != null) 
+			{
+				String motherName = victim.mother.name;
+				Person mother = people.get(motherName);
+
+				if ( (mother.father != null) || (mother.mother != null) )
+				{
+
+					if (mother.father != null)
+					{
+						String grandFatherName = mother.father.name;
+						Person grandfather = people.get(grandFatherName);
+						List<Person> uncleAndAunts = grandfather.children;
+
+						for (Person unclaunt: uncleAndAunts)
+						{
+							List<Person> children = unclaunt.children;
+							for (Person child: children)
+							{
+								if (!child.name.equals(v))
+									System.out.println(child.name + " maternal cousin of " + v + ". Born on " + child.DOB);
+							}
+						}			
+					}
+					
+					else if (mother.mother != null)
+					{
+						String grandMotherName = mother.mother.name;
+						Person grandmother = people.get(grandMotherName);
+						List<Person> uncleAndAunts = grandmother.children;
+
+						for (Person unclaunt: uncleAndAunts)
+						{
+							List<Person> children = unclaunt.children;
+							for (Person child: children)
+							{
+								if (!child.name.equals(v))
+									System.out.println(child.name + " maternal cousin of " + v + ". Born on " + child.DOB);
+							}
+						}			
+					}
+									
+				}
+				else
+				{
+					System.out.println("No maternal cousins. The lineage is dead");	
+				}
+			}	
+		}
+		else
+		{
+			System.out.println("Doesn't have cousins, the sad soul");
 		}
 	}
 }
