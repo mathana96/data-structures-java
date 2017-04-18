@@ -1,5 +1,8 @@
 package controllers;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -170,6 +173,66 @@ public class FamilyDriver
 
 	}
 	
+	public void newborn() throws IOException
+	{
+		System.out.println("New child to the kingdom!");
+
+		Person mom = null;
+		Person dad = null;
+		
+		System.out.println("\nSpeaketh the name of the child");
+		String name = input.nextLine().toLowerCase();
+		name = name.substring(0, 1).toUpperCase() + name.substring(1);
+		
+		System.out.println("\nIs the child a 'M' or a 'F'?");
+		char gender = input.nextLine().toUpperCase().charAt(0);
+		
+		System.out.println("\nYear the child is born");
+		int DOB = input.nextInt();
+		
+		input.nextLine();
+		
+		System.out.println("\nWho is the mother of this child?");
+		String mother = input.nextLine().toLowerCase();
+		mother = mother.substring(0, 1).toUpperCase() + mother.substring(1);
+		
+		if (people.containsKey(mother))
+		{
+			mom = people.get(mother);
+		}
+		else
+			System.out.println("WHAT?");
+		
+		System.out.println("\nWho is the father of this child?");
+		String father = input.nextLine().toLowerCase();
+		father = father.substring(0, 1).toUpperCase() + father.substring(1);
+		
+		if (people.containsKey(father))
+		{
+			dad = people.get(father);
+		}
+		else
+			System.out.println("WHAT?");
+		
+		Person newborn = new Person(name, gender, DOB, mom, dad);
+		people.put(name, newborn);
+		
+		writeToFile(name, gender, DOB, mother, father);
+		System.exit(0);
+	}
+	
+	public void writeToFile(String name, char gender, int DOB, String mother, String father) throws IOException
+	{
+		 File file = new File(path);
+		 
+		 FileWriter writer = new FileWriter(file, true); 
+		 
+		 
+		 writer.write("\n" + name + " " + gender + " " + DOB + " " + mother + " " + father); 
+     writer.flush();
+     writer.close();
+     
+	}
 	public void getMother(String v)
 	{
 		Person victim = people.get(v);
@@ -655,4 +718,6 @@ public class FamilyDriver
 			}
 		}
 	}
+	
+	
 }

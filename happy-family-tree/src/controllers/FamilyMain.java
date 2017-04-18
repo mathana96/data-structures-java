@@ -46,8 +46,7 @@ public class FamilyMain
 				System.out.println("2) Retrieve names of the 50 noblefolk of the land");
 				System.out.println("3) Be nosey about who's related to who and their details");
 				System.out.println("4) Somebody got married!");
-				System.out.println("5) Somebody got divorced!");
-				System.out.println("6) A poor soul was born, bless them");
+				System.out.println("5) A newborn, bless them");
 				
 				System.out.println("\n0) Exit system");
 
@@ -94,13 +93,9 @@ public class FamilyMain
 				break;
 				
 			case 5:
-				
+				driver.newborn();
 				break;
 				
-			case 6:
-				
-				break;
-
 			default:
 				System.out.println("Put on those reading glasses and try again!");
 			}
