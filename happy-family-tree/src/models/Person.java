@@ -3,6 +3,9 @@ package models;
 import static com.google.common.base.MoreObjects.toStringHelper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import com.google.common.base.Objects;
 
@@ -16,7 +19,7 @@ public class Person implements Comparable<Person>
 	public Person father;
 	public Person spouse;
 	
-	ArrayList<Relation> relations = new ArrayList<>();
+	public List<Person> children = new ArrayList<>();
 	
 	public Person(String name, char gender, int DOB, Person mother, Person father)
 	{

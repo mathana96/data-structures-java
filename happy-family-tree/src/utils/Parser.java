@@ -38,6 +38,7 @@ public class Parser
 				String mother = personTokens[3];
 				String father= personTokens[4];
 
+				Person person = null;
 				Person mom = null;
 				Person dad = null;
 
@@ -68,22 +69,37 @@ public class Parser
 					} 
 				}
 
+				
+				if (people.containsKey(personName))
+				{
+					person = people.get(personName);
+				}
+				else
+				{
+					person = new Person(personName, personGender, personDOB, mom, dad);
+					people.put(personName, person);
+				}
+				
+
 				if ( dad != null && mom != null )
 				{
 					mom.spouse = dad;
 					dad.spouse = mom;
+					
+					mom.children.add(person);
+					dad.children.add(person);
 				}
 				else if ( dad != null && mom == null )
 				{
 					dad.spouse = null;
+					dad.children.add(person);
 				}
 				else if ( dad == null && mom != null )
 				{
 					mom.spouse = null;
+					mom.children.add(person);
 				}
 
-				Person person = new Person(personName, personGender, personDOB, mom, dad);
-				people.put(personName, person);
 			}
 			else
 			{
