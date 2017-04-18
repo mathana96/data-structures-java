@@ -6,24 +6,26 @@ import java.util.ArrayList;
 
 import com.google.common.base.Objects;
 
-public class Person
+public class Person implements Comparable<Person>
 {
 
 	public String name;
 	public char gender;
 	public int DOB;
-	public String mother;
-	public String father;
+	public Person mother;
+	public Person father;
+	public Person spouse;
 	
 	ArrayList<Relation> relations = new ArrayList<>();
 	
-	public Person(String name, char gender, int DOB, String mother, String father)
+	public Person(String name, char gender, int DOB, Person mother, Person father)
 	{
 		this.name = name;
 		this.gender = gender;
 		this.DOB = DOB;
 		this.mother = mother;
 		this.father = father;
+		this.spouse = null;
 		
 	}
 	
@@ -34,7 +36,7 @@ public class Person
 		{
 
 			final Person other = (Person) obj;
-			return (Objects.equal(this.name, other.name) && Objects.equal(this.DOB, other.DOB));
+			return (Objects.equal(this.name, other.name));
 		}
 		else
 		{
@@ -42,7 +44,7 @@ public class Person
 		}
 	}
 
-//	@Override
+	@Override
 	public int compareTo(Person Person)
 	{
 		if (this.name.compareTo(Person.name)>0)

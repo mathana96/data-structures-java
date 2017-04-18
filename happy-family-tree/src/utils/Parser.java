@@ -1,46 +1,35 @@
 package utils;
 
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.stream.Stream;
 
-import edu.princeton.cs.introcs.In;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
 import models.Person;
 
 public class Parser
 {
 
-	ArrayList<Person> people = new ArrayList<>();
-	
-	
+	Map<String, Person> people = new HashMap<>();
+
 	public Parser()
 	{
 
 	}
 
-	public ArrayList<Person> parsePersonData(String path) throws Exception
+	public Map<String, Person> parsePersonData(String path) throws Exception
 	{
 
-//		Stream<String> stream = Files.lines(Paths.get(path));
-		
 		File file = new File(path);
 		Scanner inUsers = new Scanner(file);
-//
-//			
-//		File usersFile = new File(path);
-//		In inUsers = new In(usersFile);
 		String delim = "\\s"; //whitespace
 
-//		stream.forEach(
 		while (inUsers.hasNextLine())
 		{
 			String personDetails = inUsers.nextLine();
 			String[] personTokens = personDetails.split(delim);
 
-//			System.out.println(personTokens[0]);
 			if (personTokens.length == 5) 
 			{
 				String personName = personTokens[0];
@@ -48,16 +37,61 @@ public class Parser
 				int personDOB = Integer.parseInt(personTokens[2]);
 				String mother = personTokens[3];
 				String father= personTokens[4];
-				
-				Person person = new Person(personName, personGender, personDOB, mother, father);
-				people.add(person);
+
+				Person mom = null;
+				Person dad = null;
+
+				if (!mother.equals("?"))
+				{
+					if (!people.containsKey(mother))
+					{
+						mom = new Person(mother, 'M', 0, null, null);
+						people.put(mother, mom);
+					}
+					else
+					{
+						mom = people.get(mother);
+					}
+				}
+
+
+				if (!father.equals("?"))
+				{
+					if (!people.containsKey(father))
+					{
+						dad = new Person(father, 'F', 0, null, null);
+						people.put(father, dad);
+					}
+					else
+					{
+						dad = people.get(father);
+					} 
+				}
+
+				if ( dad != null && mom != null )
+				{
+					mom.spouse = dad;
+					dad.spouse = mom;
+				}
+				else if ( dad != null && mom == null )
+				{
+					dad.spouse = null;
+				}
+				else if ( dad == null && mom != null )
+				{
+					mom.spouse = null;
+				}
+
+				Person person = new Person(personName, personGender, personDOB, mom, dad);
+				people.put(personName, person);
 			}
 			else
 			{
 				throw new Exception("Invalid member length: "+ personTokens.length);
 			}
 		}
-		
+
 		return people;
 	}
+
 }

@@ -175,10 +175,10 @@ public class HuffmanTree
 		{
 			j = i + 6; 
 			String chunk = b.substring(i, j); //Extracting a chunk of 7 bits
-			chunk = "1" + chunk;
+			chunk = "1" + chunk; //leading 1
 
 			array[k] = Byte.parseByte(chunk, 2); //Converting into 1 byte and putting byte into array
-			Integer decimalInt = Byte.toUnsignedInt(array[k]);
+//			Integer decimalInt = Byte.toUnsignedInt(array[k]);
 
 			//			System.out.println(Integer.toString(decimalInt, 2));
 

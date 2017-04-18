@@ -1,6 +1,7 @@
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.junit.Test;
 
@@ -16,14 +17,32 @@ public class ReadFromFileTest
 		String path = "././test/test.txt";
 		
 		Parser parser = new Parser();
-		ArrayList<Person> people = parser.parsePersonData(path);
+		Map<String, Person> people = parser.parsePersonData(path);
 		
-		Person person1 = people.get(0);		
+		Person person1 = people.get("Colby");		
 		assertEquals("Colby", person1.name);
 		assertEquals('M', person1.gender);
 		assertEquals(1869, person1.DOB);
-		assertEquals("?", person1.mother);
-		assertEquals("?", person1.father);
+		assertEquals(null, person1.mother);
+		assertEquals(null, person1.father);
+		
+		Person person2 = people.get("Emely");		
+		assertEquals("Emely", person2.name);
+		assertEquals('F', person2.gender);
+		assertEquals(1894, person2.DOB);
+		assertEquals("Alondra", person2.mother.name);
+		assertEquals("Ruben", person2.father.name);
+		
+		Person person1smother = person1.mother;
+		Person person1sfather = person1.father;
+		assertEquals(null, person1smother);
+		assertEquals(null, person1sfather);
+		assertNull(person1.spouse);
+		
+		Person person2smother = person2.mother;
+		Person person2sfather = person2.father;
+		assertEquals(person2sfather, person2smother.spouse);
+		assertEquals(person2smother, person2sfather.spouse);
 	}
 
 }
