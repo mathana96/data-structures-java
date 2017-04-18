@@ -119,7 +119,7 @@ public class FamilyDriver
 						break;
 		
 					case "grandparents":
-						getFather(victim);
+						getGrandparents(victim);
 						break;
 
 					default:
@@ -525,6 +525,80 @@ public class FamilyDriver
 				else
 				{
 					System.out.println("No maternal aunties. Kingdom is yours!");	
+				}
+			}	
+		}
+		else
+		{
+			System.out.println("Doesn't have uncles or aunts, what on earth?");
+		}
+	}
+	
+	public void getGrandparents(String v)
+	{
+		Person victim = people.get(v);
+
+		if ( (victim.father != null) || (victim.mother != null) )
+		{
+
+			if (victim.father != null) 
+			{
+				String fatherName = victim.father.name;
+				Person father = people.get(fatherName);
+
+				if ( (father.father != null) || (father.mother != null) )
+				{
+
+					if (father.father != null)
+					{
+						String grandFatherName = father.father.name;
+						Person grandfather = people.get(grandFatherName);
+						System.out.println(grandfather.name + " paternal grandfather of " + v + ". Born on " + grandfather.DOB);
+						
+					}
+					
+					if (father.mother != null)
+					{
+						String grandMotherName = father.mother.name;
+						Person grandmother = people.get(grandMotherName);
+						System.out.println(grandmother.name + " paternal grandmother of " + v + ". Born on " + grandmother.DOB);			
+					}
+									
+				}
+				else
+				{
+					System.out.println("They're watching from up above the paternal side");	
+				}
+			}	
+			if (victim.mother != null) 
+			{
+				String motherName = victim.mother.name;
+				Person mother = people.get(motherName);
+
+				if ( (mother.father != null) || (mother.mother != null) )
+				{
+
+					if (mother.father != null)
+					{
+						String grandFatherName = mother.father.name;
+						Person grandfather = people.get(grandFatherName);
+						System.out.println(grandfather.name + " maternal grandfather of " + v + ". Born on " + grandfather.DOB);
+						
+									
+					}
+					
+					if (mother.mother != null)
+					{
+						String grandMotherName = mother.mother.name;
+						Person grandmother = people.get(grandMotherName);
+						System.out.println(grandmother.name + " maternal grandmother of " + v + ". Born on " + grandmother.DOB);
+								
+					}
+									
+				}
+				else
+				{
+					System.out.println("They're watching from up above the maternal side");	
 				}
 			}	
 		}
