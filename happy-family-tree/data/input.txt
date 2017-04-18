@@ -12,3 +12,5 @@ Stephan M 1908 Jimena Donte
 Alisha F 1841 Meredith ?
 Angie F 1832 Meredith ?
 Dexter M 1837 Meredith ?
+Jeffery M 1838 ? Clayton
+Clayton M 1817 ? ?

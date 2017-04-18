@@ -62,6 +62,7 @@ public class FamilyDriver
 			System.out.println("\nThe 'who' spell. Chant 'who' followed by one these words.");
 			System.out.println("(mother, father, siblings, cousins, spouse, grandparents, uncles, aunties");
 
+			
 			String answer = input.nextLine();
 			String[] ansTokens = answer.split("\\s");
 			if (ansTokens.length == 2)
@@ -134,6 +135,37 @@ public class FamilyDriver
 
 
 	}
+	
+	public void marry()
+	{
+		System.out.println("Festive times ahead! Feasts and bells hohoho\nBe sure to wash yourself peasant!");
+
+		System.out.println("\nSpeaketh the name of the bride");
+		String bride = input.nextLine().toLowerCase();
+		bride = bride.substring(0, 1).toUpperCase() + bride.substring(1);
+
+		System.out.println("\nSpeaketh the name of the groom");
+		String groom = input.nextLine().toLowerCase();
+		groom = groom.substring(0, 1).toUpperCase() + groom.substring(1);
+
+		if ( (people.containsKey(bride)) && (people.containsKey(groom)) )
+		{
+			Person girl = people.get(bride);
+			Person guy = people.get(groom);
+			
+			girl.spouse = guy;
+			guy.spouse = girl;
+			
+			System.out.println("\nHere! Here! " + bride + " and " + groom + " are now husband and wife!");		
+		}
+		else
+		{
+			System.out.println("How dare you! Find a bride/groom within this kingdom!");
+		}
+
+
+	}
+	
 	public void getMother(String v)
 	{
 		Person victim = people.get(v);
