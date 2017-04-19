@@ -38,7 +38,7 @@ public class FamilyDriver
 		List<Person> noble = new ArrayList<>(people.values());
 		Collections.shuffle(noble);
 
-		for (int i=0; i<50; i++)
+		for (int i=0; i<5; i++)
 		{
 			Person person = noble.get(i);
 			System.out.println(person.name + " " + person.gender + " " + person.DOB);
@@ -218,6 +218,7 @@ public class FamilyDriver
 		people.put(name, newborn);
 		
 		writeToFile(name, gender, DOB, mother, father);
+		System.out.println("Welcome, child!");
 		System.exit(0);
 	}
 	

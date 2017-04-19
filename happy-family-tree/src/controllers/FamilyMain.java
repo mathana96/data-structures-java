@@ -43,7 +43,7 @@ public class FamilyMain
 
 				System.out.println("This system is highly volatile. Any silly input will result in ......\nPick one you fancy below\n");
 				System.out.println("1) People of Exclusiveland. BEWARE o' fool that this will list all " + people.size() + " names!");
-				System.out.println("2) Retrieve names of the 50 noblefolk of the land");
+				System.out.println("2) Retrieve names of the 5 noblestfolk of the land");
 				System.out.println("3) Be nosey about who's related to who and their details");
 				System.out.println("4) Somebody got married!");
 				System.out.println("5) A newborn, bless them");
