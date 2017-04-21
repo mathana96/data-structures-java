@@ -66,6 +66,11 @@ public class FamilyMain
 	
 	public void menuRun() throws Exception
 	{
+		System.out.println(",---.                                                               |        |");
+		System.out.println("|---.,---.. . .,---.,---.,---.        ,---.,---.,---.,---.,---.,---.|---     |");
+		System.out.println("|   ||---'| | |,---||    |---'        |   ||---',---|`---.,---||   ||         ");
+		System.out.println("`---'`---'`-'-'`---^`    `---' |      |---'`---'`---^`---'`---^`   '`---'    o");
+		System.out.println("                              '       |                                       ");
 		System.out.println("\nWelcome to the Scope of the people of Exclusiveland where every name is unique!" + "\nPopulation count: " + people.size() 
 				+ "\nRead ALL instructions carefully as you proceed you peasant! Press enter to continue");
 		input.hasNextLine();
