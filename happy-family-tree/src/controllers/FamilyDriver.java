@@ -184,6 +184,10 @@ public class FamilyDriver
 		String name = input.nextLine().toLowerCase();
 		name = name.substring(0, 1).toUpperCase() + name.substring(1);
 		
+		if (!people.containsKey(name))
+		{
+			
+		
 		System.out.println("\nIs the child a 'M' or a 'F'?");
 		char gender = input.nextLine().toUpperCase().charAt(0);
 		
@@ -220,6 +224,11 @@ public class FamilyDriver
 		writeToFile(name, gender, DOB, mother, father);
 		System.out.println("Welcome, child!");
 		System.exit(0);
+		}
+		else
+		{
+			System.out.println("A person by the name of " + name + " already exists. Pick another or this poor child and it's family shall perish!");
+		}
 	}
 	
 	public void writeToFile(String name, char gender, int DOB, String mother, String father) throws IOException
