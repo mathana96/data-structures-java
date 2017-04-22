@@ -1,3 +1,8 @@
+/**
+ * @author mathana
+ * 
+ * Main class of the Family Tree program. Contains code for the menu system which calls upon the driver class
+ */
 package controllers;
 
 import java.util.Map;
@@ -8,9 +13,9 @@ import utils.Parser;
 
 public class FamilyMain
 {
-	private static String path = "././data/input.txt";
+	private static String path = "././data/input.txt"; //Path to data
 	FamilyDriver driver;
-	Map<String, Person> people;
+	Map<String, Person> people; //Map of people in list
 	Scanner input;
 	
 	public FamilyMain() throws Exception
@@ -27,7 +32,10 @@ public class FamilyMain
 		main.menuRun();
 	}
 	
-	
+	/**
+	 * Method to display the menu to user of program
+	 *
+	 */
 	public int menu()
 	{
 		boolean errorFree = false; //Ensures options entered are correct
@@ -64,6 +72,10 @@ public class FamilyMain
 		return option;
 	}
 	
+	/**
+	 * Method to process the menu selection of user
+	 * @throws Exception
+	 */
 	public void menuRun() throws Exception
 	{
 		System.out.println(",---.                                                               |        |");

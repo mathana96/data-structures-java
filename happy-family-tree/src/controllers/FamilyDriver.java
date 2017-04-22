@@ -1,3 +1,7 @@
+/**
+ * @author Mathana Nair Sreedaran
+ * This is the driver class of the Family Tree program which includes all (or most) functional methods of the program
+ */
 package controllers;
 
 import java.io.File;
@@ -15,8 +19,8 @@ import models.Person;
 public class FamilyDriver
 {
 
-	private static String path = "././data/input.txt";
-	Map<String, Person> people = new HashMap<String, Person>();
+	private static String path = "././data/input.txt"; //Path to data
+	Map<String, Person> people = new HashMap<String, Person>();		// Map of all people in the kingdom
 	Scanner input;
 
 	public FamilyDriver(Map<String,Person> p)
@@ -25,6 +29,9 @@ public class FamilyDriver
 		input = new Scanner(System.in);
 	}
 
+	/**
+	 * Method to list all the people in the kingdom!
+	 */
 	public void listAllPeople()
 	{
 		for (Person person : people.values()) 
@@ -33,10 +40,13 @@ public class FamilyDriver
 		}
 	}
 
+	/**
+	 * A special method to list "noblefolk" which are essentially n random people from the kingdom 
+	 */
 	public void listNobleFolk()
 	{
 		List<Person> noble = new ArrayList<>(people.values());
-		Collections.shuffle(noble);
+		Collections.shuffle(noble); //Shuffle to make the returned valued random at each function call
 
 		for (int i=0; i<5; i++)
 		{
@@ -45,14 +55,17 @@ public class FamilyDriver
 		}
 	}
 
+	/**
+	 * The method for the nosey option in the menu. Allows users to extract information about people in the population
+	 */
 	public void nosey()
 	{
 		System.out.println("Why you nosey little ...\nThis process is delicate. Be gentle with those peasantly hands of yours!");
 		System.out.println("\nSpeaketh the name of the poor fool who you wish to pry upon");
-		String victim = input.nextLine().toLowerCase();
+		String victim = input.nextLine().toLowerCase(); //Input the name of the person you wish to pry upon
 		victim = victim.substring(0, 1).toUpperCase() + victim.substring(1);
 
-		if (people.containsKey(victim))
+		if (people.containsKey(victim)) //Execute only if the person exists in the list/kingdom
 		{
 
 			System.out.println("Here are some personal details of " + victim + " you slimy scum!");
@@ -67,12 +80,12 @@ public class FamilyDriver
 
 			
 			String answer = input.nextLine();
-			String[] ansTokens = answer.split("\\s");
+			String[] ansTokens = answer.split("\\s"); //Spliting the spell into two distinct words
 			if (ansTokens.length == 2)
 			{
-				String key = ansTokens[0].toLowerCase();
-				String val = ansTokens[1].toLowerCase();
-				noseySwitch(victim, key, val);
+				String key = ansTokens[0].toLowerCase(); //Ensuring lowercase
+				String val = ansTokens[1].toLowerCase(); //Ensuring lowercase
+				noseySwitch(victim, key, val); //Send spell input to switch
 			}
 			else
 			{
@@ -86,6 +99,12 @@ public class FamilyDriver
 		}
 	}
 
+	/**
+	 * Nosey switch method. Gets appropriate information in relation to "spell"
+	 * @param victim The person under scrutiny 
+	 * @param key First word of spell
+	 * @param val Second word of spell
+	 */
 	public void noseySwitch(String victim, String key, String val)
 	{
 
@@ -143,19 +162,22 @@ public class FamilyDriver
 
 	}
 	
+	/**
+	 * Method to build spouse relationship for two people who get married
+	 */
 	public void marry()
 	{
 		System.out.println("Festive times ahead! Feasts and bells hohoho\nBe sure to wash yourself peasant!");
 
 		System.out.println("\nSpeaketh the name of the bride");
-		String bride = input.nextLine().toLowerCase();
+		String bride = input.nextLine().toLowerCase(); //Enter bride's name
 		bride = bride.substring(0, 1).toUpperCase() + bride.substring(1);
 
 		System.out.println("\nSpeaketh the name of the groom");
-		String groom = input.nextLine().toLowerCase();
+		String groom = input.nextLine().toLowerCase(); //Enter grooms name
 		groom = groom.substring(0, 1).toUpperCase() + groom.substring(1);
 
-		if ( (people.containsKey(bride)) && (people.containsKey(groom)) )
+		if ( (people.containsKey(bride)) && (people.containsKey(groom)) ) //Execute only if bride and groom are in the kingdom
 		{
 			Person girl = people.get(bride);
 			Person guy = people.get(groom);
@@ -167,63 +189,67 @@ public class FamilyDriver
 		}
 		else
 		{
-			System.out.println("How dare you! Find a bride/groom within this kingdom!");
+			System.out.println("How dare you! Find a bride/groom within this kingdom!"); //LOL
 		}
 
 
 	}
 	
+	/**
+	 * Method to add a new person to the kingdom. Defines as a newborn with parents who are from the kingdom. If not, null defined for parents
+	 * @throws IOException
+	 */
 	public void newborn() throws IOException
 	{
 		System.out.println("New child to the kingdom!");
 
-		Person mom = null;
-		Person dad = null;
+		Person mom = null; //Mother initialised as null
+		Person dad = null; //Father initialised as null
 		
 		System.out.println("\nSpeaketh the name of the child");
-		String name = input.nextLine().toLowerCase();
-		name = name.substring(0, 1).toUpperCase() + name.substring(1);
+		String name = input.nextLine().toLowerCase(); //Name of the new person/newborn
+		name = name.substring(0, 1).toUpperCase() + name.substring(1); //Change to key convention
 		
-		if (!people.containsKey(name))
+		if (!people.containsKey(name)) //Execute only if the name is unique
 		{
 			
-		
-		System.out.println("\nIs the child a 'M' or a 'F'?");
-		char gender = input.nextLine().toUpperCase().charAt(0);
-		
-		System.out.println("\nYear the child is born");
-		int DOB = input.nextInt();
-		
-		input.nextLine();
-		
-		System.out.println("\nWho is the mother of this child?");
-		String mother = input.nextLine().toLowerCase();
-		mother = mother.substring(0, 1).toUpperCase() + mother.substring(1);
-		
-		if (people.containsKey(mother))
-		{
-			mom = people.get(mother);
-		}
-		else
-			System.out.println("WHAT?");
-		
-		System.out.println("\nWho is the father of this child?");
-		String father = input.nextLine().toLowerCase();
-		father = father.substring(0, 1).toUpperCase() + father.substring(1);
-		
-		if (people.containsKey(father))
-		{
-			dad = people.get(father);
-		}
-		else
-			System.out.println("WHAT?");
-		
-		Person newborn = new Person(name, gender, DOB, mom, dad);
-		people.put(name, newborn);
-		
-		writeToFile(name, gender, DOB, mother, father);
-		System.out.println("Welcome, child!");
-		System.exit(0);
+
+			System.out.println("\nIs the child a 'M' or a 'F'?");
+			char gender = input.nextLine().toUpperCase().charAt(0); //Gender of child
+
+			System.out.println("\nYear the child is born");
+			int DOB = input.nextInt(); //DOB of child
+
+			input.nextLine(); //Scanner bug lol. Eat next line, otherwise stalls
+
+			System.out.println("\nWho is the mother of this child?");
+			String mother = input.nextLine().toLowerCase(); //Name of mother
+			mother = mother.substring(0, 1).toUpperCase() + mother.substring(1);
+
+			if (people.containsKey(mother))
+			{
+				mom = people.get(mother);
+			}
+			else
+				System.out.println("WHAT?");
+
+			System.out.println("\nWho is the father of this child?");
+			String father = input.nextLine().toLowerCase(); //Name of father
+			father = father.substring(0, 1).toUpperCase() + father.substring(1);
+
+			if (people.containsKey(father))
+			{
+				dad = people.get(father);
+			}
+			else
+				System.out.println("WHAT?");
+
+			Person newborn = new Person(name, gender, DOB, mom, dad); //New Person object
+			people.put(name, newborn); //Put person into map of people
+
+			writeToFile(name, gender, DOB, mother, father); //Update text file
+			System.out.println("Welcome, child!");
+			System.exit(0);
 		}
 		else
 		{
@@ -231,11 +257,20 @@ public class FamilyDriver
 		}
 	}
 	
+	/**
+	 * Method to write information to a predefined file
+	 * @param name Name of new person
+	 * @param gender Gender of new person
+	 * @param DOB DOB of new person
+	 * @param mother Mother's name of new person
+	 * @param father Father's name of new person
+	 * @throws IOException
+	 */
 	public void writeToFile(String name, char gender, int DOB, String mother, String father) throws IOException
 	{
 		 File file = new File(path);
 		 
-		 FileWriter writer = new FileWriter(file, true); 
+		 FileWriter writer = new FileWriter(file, true); //True means append, don't overwrite
 		 
 		 
 		 writer.write("\n" + name + " " + gender + " " + DOB + " " + mother + " " + father); 
@@ -243,6 +278,11 @@ public class FamilyDriver
      writer.close();
      
 	}
+	
+	/**
+	 * Get mother of victim
+	 * @param v Stands for victim
+	 */
 	public void getMother(String v)
 	{
 		Person victim = people.get(v);
@@ -259,6 +299,10 @@ public class FamilyDriver
 		}
 	}
 
+	/**
+	 * Get father of victim
+	 * @param v stands for victim
+	 */
 	public void getFather(String v)
 	{
 		Person victim = people.get(v);
@@ -275,6 +319,10 @@ public class FamilyDriver
 		}
 	}
 
+	/**
+	 * Get spouse of victim
+	 * @param v is Victim
+	 */
 	public void getSpouse(String v)
 	{
 		Person victim = people.get(v);
@@ -291,11 +339,15 @@ public class FamilyDriver
 		}
 	}
 	
+	/**
+	 * Get siblings of victim. Calculated by getting either mother/father and printing their children except for victim
+	 * @param v
+	 */
 	public void getSiblings(String v)
 	{
 		Person victim = people.get(v);
 
-		if ( (victim.father != null) || (victim.mother != null) )
+		if ( (victim.father != null) || (victim.mother != null) ) //Either one cannot be null, otherwise orphan
 		{
 
 			if (victim.father != null) 
@@ -330,6 +382,10 @@ public class FamilyDriver
 		}
 	}
 	
+	/**
+	 * Get victims cousins. Done by getting mother and father. Getting their siblings. Then print their children.
+	 * @param v Victim
+	 */
 	public void getCousins(String v)
 	{
 		Person victim = people.get(v);
@@ -449,6 +505,10 @@ public class FamilyDriver
 		}
 	}
 	
+	/**
+	 * Get uncles of victim. Done by getting mother and father. Then, get their male siblings
+	 * @param v Victim
+	 */
 	public void getUncles(String v)
 	{
 		Person victim = people.get(v);
@@ -546,6 +606,10 @@ public class FamilyDriver
 		}
 	}
 	
+	/**
+	 * Get aunties of victim. Done by getting mother and father. Then, get their female siblings
+	 * @param v Victim
+	 */
 	public void getAunties(String v)
 	{
 		Person victim = people.get(v);
@@ -643,6 +707,10 @@ public class FamilyDriver
 		}
 	}
 	
+	/**
+	 * Get grandparents of victim. Done by getting mother and father. Then, get their parents
+	 * @param v Victim
+	 */
 	public void getGrandparents(String v)
 	{
 		Person victim = people.get(v);
@@ -717,6 +785,10 @@ public class FamilyDriver
 		}
 	}
 	
+	/**
+	 * Get victims children. Simple print array list by iterating. 
+	 * @param v Victim
+	 */
 	public void getChildren(String v)
 	{
 		Person victim = people.get(v);

@@ -1,3 +1,6 @@
+/**
+ * Utility method to read in information from file and parse it. 
+ */
 package utils;
 
 import java.io.File;
@@ -18,6 +21,13 @@ public class Parser
 
 	}
 
+	/**
+	 * Each user is created as an instance of Person. Their parents are processed in the same iteration
+	 * Also adds the relationships (father, mother, children, spouse)
+	 * @param path
+	 * @return
+	 * @throws Exception
+	 */
 	public Map<String, Person> parsePersonData(String path) throws Exception
 	{
 

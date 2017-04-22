@@ -1,3 +1,6 @@
+/**
+ * Person class defining a node in the family tree. 
+ */
 package models;
 
 import static com.google.common.base.MoreObjects.toStringHelper;
