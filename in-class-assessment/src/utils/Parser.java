@@ -1,4 +1,5 @@
 /**
+ * @author Mathana Nair Sreedaran
  * Utility method to read in information from file and parse it. 
  */
 package utils;
@@ -18,7 +19,7 @@ public class Parser
 
 	public Parser()
 	{
-
+//		empty constructor
 	}
 
 	/**
@@ -40,21 +41,21 @@ public class Parser
 			String ruleDetails = inUsers.nextLine();
 			String[] ruleTokens = ruleDetails.split(delim);
 
-			if (ruleTokens.length == 4) 
+			if (ruleTokens.length == 4) //For most cases
 			{
-				Integer ruleNumber = Integer.parseInt(ruleTokens[0]);
+				Integer ruleNumber = Integer.parseInt(ruleTokens[0]); //Used to identify the rule in the map
 				String ruleText = ruleTokens[1];
 
 				Integer ruleYes = Integer.parseInt(ruleTokens[2]);
 				Integer ruleNo = Integer.parseInt(ruleTokens[3]);
 
 
-				Rule currentRule = null;
-				Rule yes = null;
-				Rule no = null;
+				Rule currentRule = null; //Initialised to null
+				Rule yes = null; //Initialised to null
+				Rule no = null; //Initialised to null
 
 
-				if (!rules.containsKey(ruleYes))
+				if (!rules.containsKey(ruleYes)) //If current rule's yes number not found in map
 				{
 					yes = new Rule("", null, null);
 					rules.put(ruleYes, yes);
@@ -64,7 +65,7 @@ public class Parser
 					yes = rules.get(ruleYes);
 				}
 
-				if (!rules.containsKey(ruleNo))
+				if (!rules.containsKey(ruleNo)) //If current rule's no number not found in map
 				{
 					no = new Rule("", null, null);
 					rules.put(ruleNo, no);
@@ -75,7 +76,7 @@ public class Parser
 				}
 
 
-				if (!rules.containsKey(ruleNumber))
+				if (!rules.containsKey(ruleNumber)) //If current rule not found in map
 				{
 					currentRule = new Rule(ruleText, yes, no);
 					rules.put(ruleNumber, currentRule);
@@ -89,7 +90,7 @@ public class Parser
 				}
 
 			}
-			else if (ruleTokens.length == 2) 
+			else if (ruleTokens.length == 2) //For the last rule with no options. Does the same as above but without yes and no options
 			{
 				Integer ruleNumber = Integer.parseInt(ruleTokens[0]);
 				String ruleText = ruleTokens[1];
@@ -107,8 +108,8 @@ public class Parser
 				{
 					Rule rule = rules.get(ruleNumber);
 					rule.question = ruleText;
-					rule.yes = yes;
-					rule.no = no;
+					rule.yes = yes; //Yes always null
+					rule.no = no; //No always null
 				}
 
 			}
@@ -118,6 +119,7 @@ public class Parser
 			}
 		}
 
+		inUsers.close();
 		return rules;
 	}
 

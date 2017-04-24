@@ -1,7 +1,7 @@
 /**
- * @author mathana
+ * @author Mathana Nair Sreedaran
  * 
- * Main class of the Family Tree program. Contains code for the menu system which calls upon the driver class
+ * Main class of the Vanity program. Contains code for the menu system which calls upon the driver class
  */
 package controllers;
 
@@ -15,15 +15,15 @@ public class VanityMain
 {
 	private static String path = "././data/input.txt"; //Path to data
 	VanityDriver driver;
-	Map<Integer, Rule> rules; //Map of people in list
+	Map<Integer, Rule> rules; //Map of rules
 	Scanner input;
 	
 	public VanityMain() throws Exception
 	{	
 		Parser parser = new Parser();
-		input = new Scanner(System.in);
-		rules = parser.parseRuleData(path);
-		driver = new VanityDriver(rules);
+		input = new Scanner(System.in); //Initialising scanner
+		rules = parser.parseRuleData(path); //Getting parsed data from Parser
+		driver = new VanityDriver(rules); //Initialising driver
 	}
 	
 	public static void main (String[] args) throws Exception
@@ -53,8 +53,6 @@ public class VanityMain
 				System.out.println("Type 'start' to begin");
 				System.out.println("\nType 'exit' to exit system");
 
-
-//				input.hasNextLine();
 				option = input.nextLine();
 
 				errorFree = true;
@@ -85,7 +83,7 @@ public class VanityMain
 			{
 			case "start":
 				Rule first = rules.get(1);
-				driver.engine(first); //Calls method for login
+				driver.engine(first); //Calls the engine method which asks questions
 				break;
 
 			default:
@@ -95,7 +93,7 @@ public class VanityMain
 			option = menu();
 
 		}
-		System.out.println("BYE!");		//The last message when you log out
+		System.out.println("BYE!");		//BYE BYE
 	}
 
 }
