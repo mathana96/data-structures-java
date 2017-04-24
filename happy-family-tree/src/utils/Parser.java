@@ -85,6 +85,9 @@ public class Parser
 					person = people.get(personName);
 					person.DOB = personDOB;
 					person.gender = personGender;
+//					Added these 2 in
+					person.mother = mom;
+					person.father = dad;
 					
 				}
 				else

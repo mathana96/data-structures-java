@@ -557,7 +557,7 @@ public class FamilyDriver
 					System.out.println("No paternal uncles. Kingdom is yours");	
 				}
 			}	
-			else if (victim.mother != null) 
+			if (victim.mother != null) 
 			{
 				String motherName = victim.mother.name;
 				Person mother = people.get(motherName);
@@ -646,7 +646,7 @@ public class FamilyDriver
 
 						for (Person unclaunt: uncleAndAunts)
 						{
-							if ( (unclaunt.gender == 'M') && (!unclaunt.name.equals(victim.father.name)) )
+							if ( (unclaunt.gender == 'F') && (!unclaunt.name.equals(victim.father.name)) )
 								System.out.println(unclaunt.name + " paternal aunty of " + v + ". Born on " + unclaunt.DOB);
 						
 						}			
@@ -658,7 +658,7 @@ public class FamilyDriver
 					System.out.println("No paternal aunties. Kingdom is yours");	
 				}
 			}	
-			else if (victim.mother != null) 
+			if (victim.mother != null) 
 			{
 				String motherName = victim.mother.name;
 				Person mother = people.get(motherName);
@@ -688,7 +688,7 @@ public class FamilyDriver
 
 						for (Person unclaunt: uncleAndAunts)
 						{
-							if ( (unclaunt.gender == 'M') && (!unclaunt.name.equals(victim.father.name)) )
+							if ( (unclaunt.gender == 'F') && (!unclaunt.name.equals(victim.father.name)) )
 								System.out.println(unclaunt.name + " maternal aunty of " + v + ". Born on " + unclaunt.DOB);
 						
 						}			
