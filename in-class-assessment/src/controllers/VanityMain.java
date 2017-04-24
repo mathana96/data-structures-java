@@ -72,7 +72,7 @@ public class VanityMain
 	 */
 	public void menuRun() throws Exception
 	{
-		System.out.println("\nWelcome to the VainVanity! Find the perfect vanity number. \nPress enter to continue"); 
+		System.out.println("\nWelcome to the VainVanity! Find the perfect vanity number."); 
 //		input.hasNextLine();
 		
 		String option = menu();
