@@ -1,0 +1,20 @@
+1:Is Your Company Name Already Known?:2:3
+2:Do Most Customers Know it?:4:3
+3:Is there a Single word or phrase that describes what your company sells?:5:6
+4:Is there a good chance that even your potential customers have heard your company name?:7:3
+5:Is 1-800-(that word or phrase) an available number?:20:8
+6:Come up with a list of every word you can think of that is associated with your product or service. Choose one. Is 1-800-(that word or phrase) an available number?:20:17
+7:Is1-800-(your company name) an available number?:20:9
+8:Does your company have customers all over the nation?:14:15
+9:Is your company name too short?:12:10
+10:Is your company name too long?:13:11
+11:Does your company have customers all over the nation?:14:15
+12:Can a short word associated with the company be added?:16:3
+13:Can it become abbreviated without becoming confusing?:16:3
+14:Try 888, 877, 866 and 844. Was one available?:20:3
+15:Look for a number with companies that use Shared Use Routing. Was one available?:20:14
+16:Is 1-800-(your modified company name) an available number?:20:14
+17:Try 888, 877, 866 and 844. Was one available?:20:18
+18:Does your company have customers all over the nation?:6:15
+19:Look for a number with companies that use Shared Use Routing. Was one available?:20:6
+20:Take it::
